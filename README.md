@@ -1,2 +1,3 @@
-# syakirinamin.com
-my personal website
+## My personal website
+
+build using next.js and tailwindcss
