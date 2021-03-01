@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Intro() {
   return (
     <>
-      <div className='h-full p-3 md:mt-5 md:px-0 md:flex md:items-center md:justify-center mx-auto'>
+      <div className='h-full p-3 mt-5 md:mt-8 md:px-0 md:flex md:items-center md:justify-center mx-auto'>
         <div className='w-full flex item-center justify-center'>
           <Image
             src='http://placekitten.com/300/300'

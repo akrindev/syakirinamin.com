@@ -6,6 +6,8 @@ module.exports = {
   theme: {
     colors: {
       ...colors,
+      transparent: "transparent",
+      curent: "currentColor",
     },
     extend: {
       fontFamily: {

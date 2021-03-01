@@ -28,7 +28,11 @@ export default function Navbar() {
   return (
     <div className='bg-white'>
       <div className='w-full max-w-3xl mx-auto flex flex-col'>
-        <div className='p-3 font-extrabold'>Syakirin Amin</div>
+        <div className='p-3 bg-gradient-to-r from-rose-600 to-pink-400 text-transparent bg-clip-text text-xl'>
+          <Link href='/'>
+            <a className='hover:text-rose-800'>Syakirin Amin</a>
+          </Link>
+        </div>
         <div className='p-2 space-x-1'>
           {listMenu.map((list) => {
             return (
@@ -36,8 +40,8 @@ export default function Navbar() {
                 <a
                   className={
                     router.pathname == list.link
-                      ? `py-1 px-4 bg-green-200 text-green-600 rounded-md font-normal text-sm`
-                      : `py-1 px-4 text-gray-400 font-light text-sm`
+                      ? `py-1 px-4 border-b-2 border-rose-500 text-rose-500 font-normal text-md`
+                      : `py-1 px-4 text-gray-400 font-light text-sm border-b-2 border-white hover:text-rose-400`
                   }>
                   {list.name}
                 </a>
