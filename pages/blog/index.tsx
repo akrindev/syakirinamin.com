@@ -1,32 +1,10 @@
 import Layout from "@/components/Layout";
+import PostList from "@/components/PostList";
+import { GetStaticProps } from "next";
 import Head from "next/head";
-import Link from "next/link";
+import { getPosts } from "../../lib/notion";
 
-interface Books {
-  readonly link: string;
-  readonly title: string;
-}
-
-export default function index() {
-  const books: Books[] = [
-    {
-      link: "/link",
-      title: "linker",
-    },
-    {
-      link: "/link",
-      title: "linker",
-    },
-    {
-      link: "/link",
-      title: "linker",
-    },
-    {
-      link: "/link",
-      title: "linker",
-    },
-  ];
-
+export default function index({ posts }) {
   return (
     <Layout>
       <Head>
@@ -37,31 +15,7 @@ export default function index() {
         <div className='text-gray-500 leading-tight'>Sharing knowledge</div>
       </div>
       <div className='mb-20 divide-y-2 divide-gray-100'>
-        {books.map((book) => (
-          <div
-            className='flex flex-col p-4 hover:bg-gray-200 cursor-pointer'
-            key={Math.random()}>
-            <div className='flex'>
-              <span className='px-4 py-0.5 rounded-3xl text-sm font-bold bg-rose-200 text-rose-600'>
-                vue.js
-              </span>
-            </div>
-            <Link href={book.link}>
-              <h1>
-                <a className='font-bold text-2xl'>{book.title}</a>
-              </h1>
-            </Link>
-            <p className='text-gray-600 text-sm font-inter'>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid,
-              aspernatur dignissimos quos quas sit velit eveniet sunt distinctio
-              ipsa? Earum iusto et praesentium asperiores enim, excepturi
-              tenetur accusamus eligendi facilis.
-            </p>
-            <div className='text-gray-400 italic font-light text-sm'>
-              22 February 2012
-            </div>
-          </div>
-        ))}
+        {posts && posts.map((post) => <PostList key={post.id} post={post} />)}
       </div>
       <div className='flex justify-center py-10 text-gray-300'>
         {new Date().getFullYear()}
@@ -69,3 +23,13 @@ export default function index() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const posts = await getPosts();
+  // console.log(posts);
+  return {
+    props: {
+      posts,
+    },
+  };
+};
