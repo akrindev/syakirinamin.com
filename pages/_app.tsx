@@ -5,7 +5,7 @@ import "../styles/globals.css";
 import "react-notion-x/src/styles.css";
 
 // used for code syntax highlighting (optional)
-import "prismjs/themes/prism-tomorrow.css";
+import "prismjs/themes/prism-twilight.css";
 
 // used for collection views (optional)
 import "rc-dropdown/assets/index.css";

@@ -23,8 +23,8 @@ const badges = {
 export default function BlogPost({ post, tags, title }) {
   return (
     <Layout>
-      <div className='flex flex-col text-center'>
-        <h1 className='font-bold tezt-2xl'>{title}</h1>
+      <div className='flex flex-col text-center py-5'>
+        <h1 className='font-bold text-2xl'>{title}</h1>
         <div className='flex space-x-2'>
           {tags &&
             tags.split(",").map((tag: string) => (
@@ -67,6 +67,7 @@ export default function BlogPost({ post, tags, title }) {
           collection: Collection,
           collectionRow: CollectionRow,
         }}
+        fullPage={false}
         recordMap={post}
         mapImageUrl={mapImageUrl}
       />
@@ -97,7 +98,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const tags = getPageProperty("tags", block, post);
   const title = getPageProperty("title", block, post);
- // console.log(tags);
+  // console.log(tags);
   return {
     props: {
       post,
