@@ -9,10 +9,6 @@ import "react-notion-x/src/styles.css";
 import "../styles/notion.css";
 // used for code syntax highlighting (optional)
 import "prismjs/themes/prism-tomorrow.css";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-php";
-import "prismjs/components/prism-jsx";
 // used for collection views (optional)
 import "rc-dropdown/assets/index.css";
 
