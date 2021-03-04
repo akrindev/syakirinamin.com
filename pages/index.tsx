@@ -1,10 +1,8 @@
-import { GetStaticProps } from "next";
-import Link from "next/link";
 import Layout from "@/components/Layout";
 import Intro from "@/components/Intro";
 import Head from "next/head";
 
-export default function Home({ data }) {
+export default function Home() {
   return (
     <Layout>
       <Head>

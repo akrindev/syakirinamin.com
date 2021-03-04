@@ -1,16 +1,10 @@
 import Layout from "@/components/Layout";
 import { getPosts, Posts } from "@/lib/notion";
-import { mapImageUrl } from "@/lib/notion-image";
 import { GetStaticPaths, GetStaticProps } from "next";
-import Link from "next/link";
 import { NotionAPI } from "notion-client";
 import { getPageProperty } from "notion-utils";
-import {
-  Code,
-  Collection,
-  CollectionRow,
-  NotionRenderer,
-} from "react-notion-x";
+import NotionPage from "@/components/NotionPage";
+import Head from "next/head";
 
 const badges = {
   laravel: "bg-rose-200 text-rose-500",
@@ -23,14 +17,17 @@ const badges = {
 export default function BlogPost({ post, tags, title }) {
   return (
     <Layout>
-      <div className='flex flex-col text-center py-5'>
-        <h1 className='font-bold text-2xl'>{title}</h1>
-        <div className='flex space-x-2'>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <div className='flex flex-col justify-center text-center py-5'>
+        <h1 className='mb-3 font-bold text-2xl'>{title}</h1>
+        <div className='flex items-center justify-center space-x-2'>
           {tags &&
             tags.split(",").map((tag: string) => (
               <span
                 key={tag}
-                className={`px-4 py-0.5 rounded-3xl text-sm font-bold ${
+                className={`px-4 py-0.5 rounded-3xl text-sm font-light ${
                   badges[tag.toLocaleLowerCase()]
                 }`}>
                 {tag.toLocaleLowerCase()}
@@ -38,46 +35,16 @@ export default function BlogPost({ post, tags, title }) {
             ))}
         </div>
       </div>
-      <NotionRenderer
-        components={{
-          pageLink: ({
-            href,
-            as,
-            passHref,
-            prefetch,
-            replace,
-            scroll,
-            shallow,
-            locale,
-            ...props
-          }) => (
-            <Link
-              href={href}
-              as={as}
-              passHref={passHref}
-              prefetch={prefetch}
-              replace={replace}
-              scroll={scroll}
-              shallow={shallow}
-              locale={locale}>
-              <a {...props} />
-            </Link>
-          ),
-          code: Code,
-          collection: Collection,
-          collectionRow: CollectionRow,
-        }}
-        fullPage={false}
-        recordMap={post}
-        mapImageUrl={mapImageUrl}
-      />
+      {/* <div className='overflow-hidden'> */}
+      <NotionPage recordMap={post} />
+      {/* </div> */}
     </Layout>
   );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getPosts<Posts[]>();
-  const paths = posts.map((p) => `/blog/${p.slug}`);
+  const paths = posts.filter((p) => p.published).map((p) => `/blog/${p.slug}`);
   return {
     paths,
     fallback: false,

@@ -1,6 +1,4 @@
-import { link, lstat } from "fs";
 import Link from "next/link";
-import { list } from "postcss";
 import { useRouter } from "next/router";
 
 const listMenu: Array<{ name: string; link: string }> = [
@@ -26,7 +24,7 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <div className='bg-white'>
+    <>
       <div className='w-full max-w-3xl mx-auto flex flex-col'>
         <div className='p-3 bg-gradient-to-r from-rose-600 to-pink-400 text-transparent bg-clip-text text-xl'>
           <Link href='/'>
@@ -50,6 +48,6 @@ export default function Navbar() {
           })}
         </div>
       </div>
-    </div>
+    </>
   );
 }
