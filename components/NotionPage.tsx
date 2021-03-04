@@ -24,36 +24,36 @@ const NotionPage: FC<Props> = ({ recordMap }) => {
   return (
     <>
       <NotionRenderer
-        components={{
-          pageLink: ({
-            href,
-            as,
-            passHref,
-            prefetch,
-            replace,
-            scroll,
-            shallow,
-            locale,
-            ...props
-          }) => (
-            <Link
-              href={href}
-              as={as}
-              passHref={passHref}
-              prefetch={prefetch}
-              replace={replace}
-              scroll={scroll}
-              shallow={shallow}
-              locale={locale}>
-              <a {...props} />
-            </Link>
-          ),
-          code: Code,
-          collection: Collection,
-          collectionRow: CollectionRow,
-          modal: Modal,
-        }}
-        bodyClassName={`py-2 overflow-hidden`}
+        // components={{
+        //   pageLink: ({
+        //     href,
+        //     as,
+        //     passHref,
+        //     prefetch,
+        //     replace,
+        //     scroll,
+        //     shallow,
+        //     locale,
+        //     ...props
+        //   }) => (
+        //     <Link
+        //       href={href}
+        //       as={as}
+        //       passHref={passHref}
+        //       prefetch={prefetch}
+        //       replace={replace}
+        //       scroll={scroll}
+        //       shallow={shallow}
+        //       locale={locale}>
+        //       <a {...props} />
+        //     </Link>
+        //   ),
+        //   code: Code,
+        //   collection: Collection,
+        //   collectionRow: CollectionRow,
+        //   modal: Modal,
+        // }}
+        bodyClassName={`overflow-x-hidden`}
         showCollectionViewDropdown={false}
         fullPage={false}
         recordMap={recordMap}

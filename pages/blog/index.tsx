@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import PostList from "@/components/PostList";
 import { GetStaticProps } from "next";
 import Head from "next/head";
-import { getPosts } from "../../lib/notion";
+import { getPosts, Posts } from "../../lib/notion";
 
 export default function index({ posts }) {
   return (
@@ -25,8 +25,9 @@ export default function index({ posts }) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const posts = await getPosts();
-  // console.log(posts);
+  const getPublishedposts: Posts[] = await getPosts();
+  const posts = getPublishedposts.filter((p) => p.published);
+
   return {
     props: {
       posts,

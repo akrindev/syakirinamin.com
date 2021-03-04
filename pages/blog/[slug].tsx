@@ -35,9 +35,9 @@ export default function BlogPost({ post, tags, title }) {
             ))}
         </div>
       </div>
-      {/* <div className='overflow-hidden'> */}
-      <NotionPage recordMap={post} />
-      {/* </div> */}
+      <div className='overflow-hidden'>
+        <NotionPage recordMap={post} />
+      </div>
     </Layout>
   );
 }
