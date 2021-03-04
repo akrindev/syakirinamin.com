@@ -8,7 +8,7 @@ import "react-notion-x/src/styles.css";
 
 import "../styles/notion.css";
 // used for code syntax highlighting (optional)
-import "prismjs/themes/prism-dark";
+import "prismjs/themes/prism-tomorrow.css";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-php";
@@ -17,10 +17,10 @@ import "prismjs/components/prism-jsx";
 import "rc-dropdown/assets/index.css";
 
 const progress = new ProgressBar({
-  size: 2,
-  color: "rgba(244, 63, 94, 1)",
-  className: "bar-of-progress",
-  delay: 100,
+    size: 2,
+    color: "rgba(244, 63, 94, 1)",
+    className: "bar-of-progress",
+    delay: 100,
 });
 
 Router.events.on("routeChangeStart", progress.start);
@@ -28,7 +28,7 @@ Router.events.on("routeChangeComplete", progress.finish);
 Router.events.on("routeChangeError", progress.finish);
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+    return <Component {...pageProps} />;
 }
 
 export default MyApp;
