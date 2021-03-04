@@ -16,7 +16,7 @@ export default function PostList({ post }) {
   return (
     <div>
       <div
-        className='flex flex-col p-4 hover:bg-gray-200 cursor-pointer'
+        className='flex flex-col p-4 hover:bg-rose-100 cursor-pointer'
         key={post.id}>
         <div className='flex space-x-2'>
           {post.tags &&
@@ -32,7 +32,7 @@ export default function PostList({ post }) {
         </div>
         <Link href={`/blog/${post.slug}`}>
           <h1>
-            <a className='font-bold text-2xl'>{post.title}</a>
+            <a className='font-bold text-2xl flex-1'>{post.title}</a>
           </h1>
         </Link>
 

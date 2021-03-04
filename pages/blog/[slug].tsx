@@ -12,9 +12,10 @@ const badges = {
   "next.js": "bg-gray-100 text-gray-700",
   "vue.js": "bg-green-200 text-green-500",
   javascript: "bg-amber-200 text-amber-800",
+  typescript: "bg-blue-400 text-gray-200",
 };
 
-export default function BlogPost({ post, tags, title }) {
+export default function BlogPost({ post, tags, title, date }) {
   return (
     <Layout>
       <Head>
@@ -34,8 +35,11 @@ export default function BlogPost({ post, tags, title }) {
               </span>
             ))}
         </div>
+        <div className='font-light text-sm italic flex justify-center py-2'>
+          {date}
+        </div>
       </div>
-      <div className='overflow-hidden'>
+      <div className='overflow-hidden px-2'>
         <NotionPage recordMap={post} />
       </div>
     </Layout>
@@ -65,12 +69,15 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const tags = getPageProperty("tags", block, post);
   const title = getPageProperty("title", block, post);
-  // console.log(tags);
+  const date = getPageProperty("date", block, post);
+
   return {
     props: {
       post,
       tags,
       title,
+      date,
     },
+    revalidate: 30,
   };
 };
