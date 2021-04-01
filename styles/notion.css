@@ -23,6 +23,8 @@
 
 .notion-text {
   padding: 0.5em 2px;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .notion-asset-caption {
@@ -334,5 +336,9 @@
 }
 
 .notion-viewport {
-  position: unset;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
 }

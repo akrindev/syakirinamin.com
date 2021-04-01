@@ -53,7 +53,7 @@ const NotionPage: FC<Props> = ({ recordMap }) => {
           collectionRow: CollectionRow,
           modal: Modal,
         }}
-        bodyClassName={`overflow-x-hidden`}
+        bodyClassName={`font-inter`}
         showCollectionViewDropdown={false}
         fullPage={false}
         recordMap={recordMap}

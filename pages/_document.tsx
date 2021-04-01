@@ -16,8 +16,8 @@ class MyDocument extends Document {
   render(): JSX.Element {
     return (
       <Html lang='en'>
-        <Head />
-        <body className='bg-warmGray-100'>
+        <Head/>
+        <body className='bg-warmGray-50'>
           <Main />
           <NextScript />
         </body>

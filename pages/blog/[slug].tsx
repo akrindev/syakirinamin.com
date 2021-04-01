@@ -41,7 +41,7 @@ export default function BlogPost({ post, tags, title, date }) {
           {getDateValue(date)}
         </div>
       </div>
-      <div className='relative px-2'>
+      <div className='relative px-2 mb-20'>
         <NotionPage recordMap={post} />
       </div>
     </Layout>

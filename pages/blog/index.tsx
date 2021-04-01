@@ -12,7 +12,7 @@ export default function index({ posts }) {
             </Head>
             <div className='flex flex-col my-5 p-5'>
                 <h1 className='font-extrabold text-2xl'>Blog</h1>
-                <div className='text-gray-500 leading-tight'>Sharing knowledge</div>
+                <div className='text-gray-500 leading-tight'>Sharing is caring</div>
             </div>
             <div className='mb-20 divide-y-2 divide-gray-100'>
                 {posts && posts.map((post) => <PostList key={post.id} post={post} />)}
@@ -32,6 +32,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         props: {
             posts,
         },
-        revalidate: 10
+        revalidate: 1
     };
 };

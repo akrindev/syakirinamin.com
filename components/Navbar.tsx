@@ -21,10 +21,10 @@ export default function Navbar() {
 
   return (
     <>
-      <div className='w-full max-w-3xl mx-auto flex flex-col'>
+      <nav className='w-full max-w-3xl mx-auto flex flex-col'>
         <div className='p-3 bg-gradient-to-r from-rose-600 to-pink-400 text-transparent bg-clip-text text-xl'>
           <Link href='/'>
-            <a className='hover:text-rose-800'>Syakirin Amin</a>
+            <a className='hover:text-rose-800'>Hello.</a> 
           </Link>
         </div>
         <div className='p-2 space-x-1 flex justify-end'>
@@ -43,7 +43,7 @@ export default function Navbar() {
             );
           })}
         </div>
-      </div>
+      </nav>
     </>
   );
 }
