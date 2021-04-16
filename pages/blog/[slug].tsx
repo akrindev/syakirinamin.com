@@ -6,6 +6,7 @@ import Layout from "@/components/Layout";
 import ArrowLeft from "@/components/ArrowLeft";
 import NotionPage from "@/components/NotionPage";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const badges = {
   laravel: "bg-rose-200 text-rose-500",
@@ -27,6 +28,12 @@ export default function BlogPost({
   property: Posts;
   post: ExtendedRecordMap;
 }) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading . . .</div>;
+  }
+
   return (
     <Layout>
       <Head>
