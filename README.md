@@ -1,3 +1,3 @@
 ## My personal website
 
-build using next.js and tailwindcss
+build with Next.js and Tailwindcss
