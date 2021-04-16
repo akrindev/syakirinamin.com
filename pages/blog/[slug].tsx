@@ -1,5 +1,6 @@
 import { getPosts, Posts } from "@/lib/notion";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { ExtendedRecordMap } from "notion-types";
 import { NotionAPI } from "notion-client";
 import Layout from "@/components/Layout";
 import ArrowLeft from "@/components/ArrowLeft";
@@ -19,7 +20,13 @@ const getBadge = (badge: string) => {
   return badges[badge] ?? "bg-amber-200 text-amber-800";
 };
 
-export default function BlogPost({ post, property }) {
+export default function BlogPost({
+  post,
+  property
+}: {
+  property: Posts;
+  post: ExtendedRecordMap;
+}) {
   return (
     <Layout>
       <Head>
@@ -68,7 +75,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const slug = ctx.params.slug as string;
   const notion = new NotionAPI();
-  const postPublished = posts
+  const postPublished: Posts = posts
     .filter((p) => p.published)
     .find((p) => p.slug === slug);
   const post = await notion.getPage(postPublished.id);
