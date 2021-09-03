@@ -14,7 +14,7 @@ const badges = {
   "next.js": "bg-gray-100 text-gray-700",
   "vue.js": "bg-green-200 text-green-500",
   javascript: "bg-amber-200 text-amber-800",
-  typescript: "bg-blue-400 text-gray-200"
+  typescript: "bg-blue-400 text-gray-200",
 };
 
 const getBadge = (badge: string) => {
@@ -23,7 +23,7 @@ const getBadge = (badge: string) => {
 
 export default function BlogPost({
   post,
-  property
+  property,
 }: {
   property: Posts;
   post: ExtendedRecordMap;
@@ -41,26 +41,25 @@ export default function BlogPost({
       </Head>
 
       <ArrowLeft />
-      <div className="flex flex-col justify-center text-center pb-5">
-        <h1 className="mb-3 font-bold text-2xl">{property.title}</h1>
-        <div className="flex items-center justify-center space-x-2">
+      <div className='flex flex-col justify-center pb-5'>
+        <h1 className='mb-3 font-bold text-2xl'>{property.title}</h1>
+        <div className='flex items-center space-x-2'>
           {property.tags &&
             property.tags.map((tag: string) => (
               <span
                 key={tag}
                 className={`px-4 py-0.5 rounded-3xl text-sm font-light ${getBadge(
                   tag.toLocaleLowerCase()
-                )}`}
-              >
+                )}`}>
                 {tag.toLocaleLowerCase()}
               </span>
             ))}
-        </div>
-        <div className="font-light text-sm italic flex justify-center py-2">
-          {property.date}
+          <div className='font-light text-sm italic flex justify-center py-2'>
+            {property.date}
+          </div>
         </div>
       </div>
-      <div className="relative px-2 mb-20">
+      <div className='relative w-full px-2 mb-20'>
         <NotionPage recordMap={post} />
       </div>
     </Layout>
@@ -73,7 +72,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true
+    fallback: true,
   };
 };
 
@@ -93,8 +92,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   return {
     props: {
       post,
-      property: postPublished
+      property: postPublished,
     },
-    revalidate: 3
+    revalidate: 3,
   };
 };

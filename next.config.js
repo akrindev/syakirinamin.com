@@ -1,5 +1,7 @@
 module.exports = {
-    images: {
-        domains: ["placekitten.com"],
-    },
+  images: {
+    domains: ["placekitten.com"],
+  },
+
+  experimental: { esmExternals: true },
 };
