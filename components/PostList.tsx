@@ -19,32 +19,31 @@ const Description = (description) => (
 export default function PostList({ post }) {
   return (
     <>
-      <div className='flex flex-col p-4' key={post.id}>
-        <div className='flex space-x-2'>
-          {post.tags &&
-            post.tags.map((tag: string) => (
-              <span
-                key={tag}
-                className={`px-3 py-1 rounded-3xl text-xs font-base ${getBadge(
-                  tag.toLocaleLowerCase()
-                )}`}>
-                {tag.toLocaleLowerCase()}
-              </span>
-            ))}
-        </div>
+      <Link href={`/blog/${post.slug}`}>
+        <a className='block font-bold font-nunito text-xl text-coolGray-900 hover:bg-gray-100 hover:text-warmGay-900 focus:text-rose-400'>
+          <div className='flex flex-col p-4' key={post.id}>
+            <div className='flex space-x-2'>
+              {post.tags &&
+                post.tags.map((tag: string) => (
+                  <span
+                    key={tag}
+                    className={`px-3 py-1 rounded-3xl text-xs font-base ${getBadge(
+                      tag.toLocaleLowerCase()
+                    )}`}>
+                    {tag.toLocaleLowerCase()}
+                  </span>
+                ))}
+            </div>
 
-        <div className='text-gray-400 italic font-mono font-light text-sm'>
-          {post.date}
-        </div>
-
-        <Link href={`/blog/${post.slug}`}>
-          <a className='font-bold font-nunito text-2xl text-coolGray-900 hover:text-rose-900 focus:text-rose-400'>
             {post.title}
-          </a>
-        </Link>
+            <div className='text-gray-400 italic font-mono font-light text-sm'>
+              {post.date}
+            </div>
 
-        {post.description && <Description />}
-      </div>
+            {post.description && <Description />}
+          </div>
+        </a>
+      </Link>
     </>
   );
 }
