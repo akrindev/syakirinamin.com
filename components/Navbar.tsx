@@ -20,11 +20,12 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <>
-      <nav className='w-full max-w-3xl mx-auto flex flex-col'>
+    <header>
+      <div className='w-full bg-gradient-to-r from-rose-500 via-purple-600 to-fuchsia-700 h-1'></div>
+      <nav className='w-full max-w-4xl mx-auto flex flex-col'>
         <div className='p-3 bg-gradient-to-r from-rose-600 to-pink-400 text-transparent bg-clip-text text-xl'>
           <Link href='/'>
-            <a className='hover:text-rose-800'>Hello.</a> 
+            <a className='hover:text-rose-800'>Hello.</a>
           </Link>
         </div>
         <div className='p-2 space-x-1 flex justify-end'>
@@ -44,6 +45,6 @@ export default function Navbar() {
           })}
         </div>
       </nav>
-    </>
+    </header>
   );
 }
