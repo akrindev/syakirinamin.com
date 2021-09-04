@@ -34,6 +34,12 @@ export default function BlogPost({
     return <div>Loading . . .</div>;
   }
 
+  const date = new Date(property.date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <Layout>
       <Head>
@@ -41,21 +47,21 @@ export default function BlogPost({
       </Head>
 
       <ArrowLeft />
-      <div className='flex flex-col justify-center pb-5'>
+      <div className='flex flex-col justify-center mt-5 pb-5 px-5 md:px-0'>
         <h1 className='mb-3 font-bold text-2xl'>{property.title}</h1>
-        <div className='flex items-center space-x-2'>
+        <div className='flex flex-col items-start space-x-2'>
           {property.tags &&
             property.tags.map((tag: string) => (
               <span
                 key={tag}
-                className={`px-4 py-0.5 rounded-3xl text-sm font-light ${getBadge(
+                className={`px-3 py-0.5 rounded-md text-sm font-light ${getBadge(
                   tag.toLocaleLowerCase()
                 )}`}>
                 {tag.toLocaleLowerCase()}
               </span>
             ))}
           <div className='font-light text-sm italic flex justify-center py-2'>
-            {property.date}
+            {date}
           </div>
         </div>
       </div>
