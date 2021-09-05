@@ -14,9 +14,9 @@ import "rc-dropdown/assets/index.css";
 
 const progress = new ProgressBar({
   size: 2,
-  color: "rgba(244, 63, 94, 1)",
+  color: "#34D399",
   className: "bar-of-progress",
-  delay: 100,
+  delay: 200
 });
 
 Router.events.on("routeChangeStart", progress.start);

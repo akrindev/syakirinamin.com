@@ -3,7 +3,7 @@ import Document, {
   Head,
   Html,
   Main,
-  NextScript,
+  NextScript
 } from "next/document";
 
 class MyDocument extends Document {
@@ -15,9 +15,11 @@ class MyDocument extends Document {
 
   render(): JSX.Element {
     return (
-      <Html lang='en'>
-        <Head />
-        <body className='bg-white'>
+      <Html lang="en">
+        <Head>
+          <link rel="shortcut icon" href="/avatar.png" type="image/png" />
+        </Head>
+        <body className="bg-white">
           <Main />
           <NextScript />
         </body>
