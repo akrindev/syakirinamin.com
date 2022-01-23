@@ -1,7 +1,6 @@
 module.exports = {
+  swcMinify: true,
   images: {
-    domains: ["placekitten.com"],
+    domains: ["encrypted-tbn0.gstatic.com", "images7.alphacoders.com"],
   },
-
-  experimental: { esmExternals: true },
 };

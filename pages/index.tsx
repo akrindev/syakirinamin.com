@@ -1,6 +1,7 @@
+import Head from "next/head";
 import Layout from "@/components/Layout";
 import Intro from "@/components/Intro";
-import Head from "next/head";
+import FeaturedPosts from "@/components/FeaturedPosts";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
         <title>Syakirin Amin</title>
       </Head>
       <Intro />
+      <FeaturedPosts />
     </Layout>
   );
 }
