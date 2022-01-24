@@ -1,37 +1,37 @@
 import Layout from "@/components/Layout";
-import PostList from "@/components/PostList";
+import Footer from "@/components/Footer";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import { getPosts, Posts } from "../../lib/notion";
+import { FeaturedPosts as FPosts } from "@/components/FeaturedPosts";
+import FeaturedPosts from "@/components/FeaturedPosts";
 
-export default function index({ posts }) {
+export default function index({
+  featuredPosts: posts,
+}: {
+  featuredPosts: FPosts[];
+}) {
   return (
     <Layout>
       <Head>
         <title>Blog</title>
       </Head>
-      <div className="flex flex-col my-5 p-5">
-        <h1 className="font-extrabold text-2xl">Blog</h1>
-        <div className="text-gray-500 leading-tight">Sharing is caring</div>
+      <div className='mb-20 divide-y-2 divide-gray-100'>
+        {posts && <FeaturedPosts posts={posts} />}
       </div>
-      <div className="mb-20 divide-y-2 divide-gray-100">
-        {posts && posts.map((post) => <PostList key={post.id} post={post} />)}
-      </div>
-      <div className="flex justify-center py-10 text-gray-300">
-        {new Date().getFullYear()}
-      </div>
+      <Footer />
     </Layout>
   );
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const getPublishedPosts: Posts[] = await getPosts();
-  const posts = getPublishedPosts.filter((p) => p.published);
+  const featuredPosts = getPublishedPosts.filter((p) => p.published);
 
   return {
     props: {
-      posts
+      featuredPosts,
     },
-    revalidate: 1
+    revalidate: 1,
   };
 };
