@@ -3,13 +3,12 @@ import Footer from "@/components/Footer";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import { getPosts, Posts } from "../../lib/notion";
-import { FeaturedPosts as FPosts } from "@/components/FeaturedPosts";
 import FeaturedPosts from "@/components/FeaturedPosts";
 
 export default function index({
   featuredPosts: posts,
 }: {
-  featuredPosts: FPosts[];
+  featuredPosts: Posts[];
 }) {
   return (
     <Layout>
@@ -19,7 +18,6 @@ export default function index({
       <div className='mb-20 divide-y-2 divide-gray-100'>
         {posts && <FeaturedPosts posts={posts} />}
       </div>
-      <Footer />
     </Layout>
   );
 }
@@ -32,6 +30,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       featuredPosts,
     },
-    revalidate: 1,
+    revalidate: 10,
   };
 };
