@@ -1,9 +1,9 @@
 export default function Footer() {
   return (
-    <div className='flex items-center justify-center mt-24 mb-10 text-gray-700'>
-      <span className='mr-1'>{`{ } `}</span>{" "}
-      <span className='mr-1'> with {`<3`} in </span>
-      <strong>Pekalongan, Indonesia</strong>
+    <div className='flex gap-1 items-center justify-center mt-24 mb-10 text-gray-700 font-nunito'>
+      <span className='mr-1 font-mono'>Handcrafted</span>
+      <span>in</span>
+      <span className='font-bold'>Pekalongan, Indonesia</span>
     </div>
   );
 }

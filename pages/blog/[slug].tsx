@@ -1,6 +1,5 @@
 import { getPosts, Posts } from "@/lib/notion";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { ExtendedRecordMap } from "notion-types";
 import { NotionAPI } from "notion-client";
 import Layout from "@/components/Layout";
 import ArrowLeft from "@/components/ArrowLeft";
@@ -8,25 +7,12 @@ import NotionPage from "@/components/NotionPage";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const badges = {
-  laravel: "bg-rose-200 text-rose-500",
-  "react.js": "bg-blue-100 text-blue-500",
-  "next.js": "bg-gray-100 text-gray-700",
-  "vue.js": "bg-green-200 text-green-500",
-  javascript: "bg-amber-200 text-amber-800",
-  typescript: "bg-blue-400 text-gray-200",
-};
-
-const getBadge = (badge: string) => {
-  return badges[badge] ?? "bg-amber-200 text-amber-800";
-};
-
 export default function BlogPost({
   post,
   property,
 }: {
   property: Posts;
-  post: ExtendedRecordMap;
+  post;
 }) {
   const router = useRouter();
 
@@ -34,7 +20,7 @@ export default function BlogPost({
     return <div>Loading . . .</div>;
   }
 
-  const date = new Date(property.date).toLocaleDateString("en-US", {
+  const date = new Date(property.date).toLocaleDateString("id-ID", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -47,16 +33,16 @@ export default function BlogPost({
       </Head>
 
       <ArrowLeft />
-      <div className='flex flex-col justify-center mt-5 pb-5 px-5 md:px-0'>
+      <div
+        className='mt-5 px-5 md:px-0 flex flex-col justify-center border-b-2 border-dashed
+       border-purple-200/70'>
         <h1 className='mb-3 font-bold text-2xl'>{property.title}</h1>
         <div className='flex flex-col items-start space-x-2'>
           {property.tags &&
             property.tags.map((tag: string) => (
               <span
                 key={tag}
-                className={`px-3 py-0.5 rounded-md text-sm font-light ${getBadge(
-                  tag.toLocaleLowerCase()
-                )}`}>
+                className={`px-3 py-0.5 rounded-md text-sm font-light bg-amber-200 text-amber-800`}>
                 {tag.toLocaleLowerCase()}
               </span>
             ))}
@@ -65,7 +51,7 @@ export default function BlogPost({
           </div>
         </div>
       </div>
-      <div className='relative w-full px-2 mb-20'>
+      <div className='relative max-w-3xl px-2 xl:px-0 mb-20'>
         <NotionPage recordMap={post} />
       </div>
     </Layout>

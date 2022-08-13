@@ -6,7 +6,7 @@ import Intro from "@/components/Intro";
 import FeaturedPosts from "@/components/FeaturedPosts";
 import Footer from "@/components/Footer";
 
-export default function Home({ featuredPosts }) {
+export default function Home({ featuredPosts }: { featuredPosts: Posts[] }) {
   return (
     <Layout>
       <Head>
@@ -14,7 +14,6 @@ export default function Home({ featuredPosts }) {
       </Head>
       <Intro />
       <FeaturedPosts posts={featuredPosts} />
-      <Footer />
     </Layout>
   );
 }
@@ -30,6 +29,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       featuredPosts,
     },
-    revalidate: 1,
+    revalidate: 10,
   };
 };
