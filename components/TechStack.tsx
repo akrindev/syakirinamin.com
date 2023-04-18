@@ -1,4 +1,5 @@
 import Image from "next/legacy/image";
+import { Tooltip } from "react-tooltip";
 
 export default function TechStack() {
   const techStack: Array<{
@@ -33,13 +34,16 @@ export default function TechStack() {
                   src={tech.logo}
                   width={40}
                   height={40}
-                  className='grayscale hover:grayscale-0 hover:scale-95 duration-300'
+                  data-tooltip-id={tech.name}
+                  data-tooltip-content={tech.name}
+                  className='tooltip grayscale hover:grayscale-0 hover:scale-95 duration-300'
                 />
               </div>
             ))}
           </div>
         </div>
       </div>
+      <Tooltip anchorSelect='.tooltip' />
     </div>
   );
 }

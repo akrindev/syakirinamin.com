@@ -9,6 +9,8 @@ import "react-notion-x/src/styles.css";
 import "prismjs/themes/prism-tomorrow.css";
 import "../styles/globals.css";
 
+import "react-tooltip/dist/react-tooltip.css";
+
 const progress = new ProgressBar({
   size: 2,
   color: "#34D399",
