@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 import Intro from "@/components/Intro";
 import FeaturedPosts from "@/components/FeaturedPosts";
 import Footer from "@/components/Footer";
+import TechStack from "@/components/TechStack";
 
 export default function Home({ featuredPosts }: { featuredPosts: Posts[] }) {
   return (
@@ -13,6 +14,7 @@ export default function Home({ featuredPosts }: { featuredPosts: Posts[] }) {
         <title>Syakirin Amin</title>
       </Head>
       <Intro />
+      <TechStack />
       <FeaturedPosts posts={featuredPosts} />
     </Layout>
   );
