@@ -1,9 +1,10 @@
+import { useTheme } from "next-themes";
 import Document, {
   DocumentContext,
   Head,
   Html,
   Main,
-  NextScript
+  NextScript,
 } from "next/document";
 
 class MyDocument extends Document {
@@ -19,7 +20,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="shortcut icon" href="/avatar.png" type="image/png" />
         </Head>
-        <body className="bg-white">
+        <body className="bg-white dark:bg-gray-900 dark:text-gray-400">
           <Main />
           <NextScript />
         </body>
