@@ -7,7 +7,7 @@ const NotionPage = ({ recordMap }) => {
   return (
     <>
       <NotionRenderer
-        bodyClassName={`font-inter`}
+        bodyClassName={`font-inter dark:text-gray-400`}
         showCollectionViewDropdown={false}
         fullPage={false}
         recordMap={recordMap}
