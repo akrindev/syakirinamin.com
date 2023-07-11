@@ -1,6 +1,7 @@
 import Image from "next/legacy/image";
 import TechStack from "./TechStack";
 import { motion } from "framer-motion";
+import SocialSection from "./SocialSection";
 
 export default function Intro() {
   return (
@@ -49,6 +50,9 @@ export default function Intro() {
               </a>
               .
             </p>
+          </div>
+          <div>
+            <SocialSection />
           </div>
         </motion.div>
       </div>
