@@ -22,18 +22,18 @@ export default function TechStack() {
 
   return (
     <div className='mx-5 w-full max-w-4xl'>
-      <div className='flex flex-col space-y-4'>
-        <div className='flex flex-col space-y-2'>
+      <div className='flex flex-col items-end space-y-4'>
+        <div className='flex flex-col items-end space-y-2'>
           <p className='text-gray-600 font-inter'>
             technologies I've worked with
           </p>
-          <div className='flex items-center space-x-4'>
+          <div className='flex space-x-6'>
             {techStack.map((tech) => (
               <div key={tech.name}>
                 <Image
                   src={tech.logo}
-                  width={40}
-                  height={40}
+                  width={25}
+                  height={25}
                   data-tooltip-id={tech.name}
                   data-tooltip-content={tech.name}
                   className='tooltip grayscale hover:grayscale-0 hover:scale-95 duration-300'
