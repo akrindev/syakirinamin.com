@@ -1,4 +1,3 @@
-import { Posts } from "@/lib/notion";
 import Head from "next/head";
 import Layout from "@/components/Layout";
 import Intro from "@/components/Intro";
