@@ -41,7 +41,7 @@ export default function index({ projects }: ProjectProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async () => {
   const projects = await getProjects();
 
   // const keys = Object.keys(post?.block || {});
