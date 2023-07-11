@@ -11,26 +11,9 @@ export default function Home({ featuredPosts }: { featuredPosts: Posts[] }) {
   return (
     <Layout>
       <Head>
-        <title>Syakirin Amin</title>
+        <title>Syakirin Amin | Software Engineer</title>
       </Head>
       <Intro />
-      <TechStack />
-      <FeaturedPosts posts={featuredPosts} />
     </Layout>
   );
 }
-
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const getPublishedPosts: Posts[] = await getPosts();
-  const posts = getPublishedPosts.filter((p) => p.published);
-
-  // get 6 latest posts
-  const featuredPosts = posts.slice(0, 6);
-
-  return {
-    props: {
-      featuredPosts,
-    },
-    revalidate: 10,
-  };
-};

@@ -27,13 +27,13 @@ export default function TechStack() {
           <p className='text-gray-600 font-inter'>
             technologies I've worked with
           </p>
-          <div className='flex items-center space-x-4'>
+          <div className='flex items-center space-x-6'>
             {techStack.map((tech) => (
               <div key={tech.name}>
                 <Image
                   src={tech.logo}
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                   data-tooltip-id={tech.name}
                   data-tooltip-content={tech.name}
                   className='tooltip grayscale hover:grayscale-0 hover:scale-95 duration-300'
