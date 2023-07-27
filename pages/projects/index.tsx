@@ -19,7 +19,8 @@ export default function index({ projects }: ProjectProps) {
         <div className='mx-5 font-nunito'>
           <h1 className='text-2xl font-semibold'>Projects</h1>
           <p className='text-sm text-gray-500'>
-            Curated list of projects I've worked on.
+            Curated list of projects I've worked on. ordered by the latest to
+            oldest.
           </p>
         </div>
 

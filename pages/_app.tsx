@@ -25,7 +25,7 @@ Router.events.on("routeChangeError", progress.finish);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider attribute="class" enableSystem>
+    <ThemeProvider attribute='class' enableSystem>
       <Component {...pageProps} />
     </ThemeProvider>
   );

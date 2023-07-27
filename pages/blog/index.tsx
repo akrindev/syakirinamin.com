@@ -30,6 +30,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       featuredPosts,
     },
-    revalidate: 10,
+    revalidate: 3,
   };
 };

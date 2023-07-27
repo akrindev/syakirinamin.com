@@ -6,6 +6,9 @@ import ArrowLeft from "@/components/ArrowLeft";
 import NotionPage from "@/components/NotionPage";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
+import { format } from "date-fns";
+import id from "date-fns/locale/id";
 
 export default function BlogPost({
   post,
@@ -20,10 +23,11 @@ export default function BlogPost({
     return <div>Loading . . .</div>;
   }
 
-  const date = new Date(property.date).toLocaleDateString("id-ID", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  // format property.date to readable date
+  // with name of day
+  // example : Rabu, 12 January 2021
+  const date = format(new Date(property.date), "EEEE, dd MMMM yyyy", {
+    locale: id,
   });
 
   return (
@@ -52,7 +56,14 @@ export default function BlogPost({
         </div>
       </div>
       <div className='relative max-w-3xl px-2 xl:px-0 mb-20'>
-        <NotionPage recordMap={post} />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}>
+          <NotionPage recordMap={post} />
+        </motion.div>
       </div>
     </Layout>
   );
