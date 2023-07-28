@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import ProgressBar from "@badrap/bar-of-progress";
 import Router from "next/router";
+import { Analytics } from "@vercel/analytics/react";
 
 // core styles shared by all of react-notion-x (required)
 import "react-notion-x/src/styles.css";
@@ -27,6 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider attribute='class' enableSystem>
       <Component {...pageProps} />
+      <Analytics />
     </ThemeProvider>
   );
 }
