@@ -20,7 +20,7 @@ export default function SocialSection() {
           <GithubIcon size={24} />
         </a>
         <a
-          href='//twitter.com/Akrinart'
+          href='//twitter.com/syakirinam'
           target='__blank'
           className='text-gray-500 hover:text-gray-700'>
           <TwitterIcon size={24} />
