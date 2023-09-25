@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { NotionRenderer } from "react-notion-x";
 
-import { mapImageUrl } from "@/lib/notion-image";
+import { mapNotionImageUrl } from "@/lib/notion-image";
 
 const NotionPage = ({ recordMap }) => {
   return (
@@ -11,7 +11,7 @@ const NotionPage = ({ recordMap }) => {
         showCollectionViewDropdown={false}
         fullPage={false}
         recordMap={recordMap}
-        mapImageUrl={mapImageUrl}
+        mapImageUrl={mapNotionImageUrl}
         darkMode={false}
         pageAside={null}
         footer={false}
