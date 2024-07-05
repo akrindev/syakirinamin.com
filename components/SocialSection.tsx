@@ -31,12 +31,12 @@ export default function SocialSection() {
           className='text-gray-500 hover:text-gray-700'>
           <LinkedinIcon size={24} />
         </a>
-        <a
+        {/* <a
           href='//instagram.com/akrinart'
           target='__blank'
           className='text-gray-500 hover:text-gray-700'>
           <InstagramIcon size={24} />
-        </a>
+        </a> */}
       </div>
     </div>
   );
