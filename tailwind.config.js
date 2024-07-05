@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ["Inter", "Roboto"],
-        nunito: ["Nunito"],
+        inter: ["var(--font-inter)", "Roboto"],
+        nunito: ["var(--font-nunito)", "Roboto"],
       },
     },
   },

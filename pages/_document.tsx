@@ -20,7 +20,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="shortcut icon" href="/avatar.png" type="image/png" />
         </Head>
-        <body className="bg-white dark:bg-gray-900 dark:text-gray-400">
+        <body className="bg-white dark:bg-black dark:text-gray-400">
           <Main />
           <NextScript />
         </body>

@@ -28,27 +28,10 @@ export default function Intro() {
           </div>
           <div className='text-md font-inter font-normal flex flex-col space-y-3'>
             <p>
-              I work as a Full-stack Engineer on a daily basis, using Laravel as
-              the backend and either Next.js or Vue.js for the frontend. I have
-              been involved with web technology since my vocational high school
-              days, and I feel comfortable and passionate about diving deeper
-              into the world of web development.
-            </p>
-            <p>
-              Currently, I am working on an education-related project as an
-              engineer. Additionally, I have a strong interest in Product
-              Management and UI/UX design, and I am actively exploring those
-              fields.
-            </p>
-            <p>
-              As of 2023, I am an undergraduate student pursuing a degree in
-              Information Technology. In addition to my professional work, I
-              also dedicate time to my personal projects, <b> Smeducative</b>{" "}
-              and{" "}
-              <a href='//creasi.co' className='italic underline'>
-                Creasico
-              </a>
-              .
+              I'm a Full-Stack Engineer with a knack for turning ideas into reality through code. 
+              My journey spans from crafting intuitive educational platforms to building robust management systems, always with an eye for user experience. 
+              When I'm not deep in Laravel or React, you'll find me exploring the frontiers of AI and UI/UX design, constantly pushing the boundaries of what's possible in tech. 
+              Got an exciting project in mind? Let's collaborate and bring some innovative ideas to life!
             </p>
           </div>
           <div>
@@ -56,7 +39,7 @@ export default function Intro() {
           </div>
         </motion.div>
       </div>
-      <TechStack />
+      {/* <TechStack /> */}
     </div>
   );
 }
