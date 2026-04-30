@@ -14,13 +14,13 @@ class MyDocument extends Document {
     return initialProps;
   }
 
-  render(): JSX.Element {
+  render(): React.JSX.Element {
     return (
       <Html lang="en">
         <Head>
           <link rel="shortcut icon" href="/avatar.png" type="image/png" />
         </Head>
-        <body className="bg-white dark:bg-black dark:text-gray-400">
+        <body>
           <Main />
           <NextScript />
         </body>

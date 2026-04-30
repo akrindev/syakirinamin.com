@@ -1,12 +1,37 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  swcMinify: true,
+const nextConfig = {
   images: {
-    domains: [
-      "encrypted-tbn0.gstatic.com",
-      "images7.alphacoders.com",
-      "www.notion.so",
-      "prod-files-secure.s3.us-west-2.amazonaws.com",
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.notion.so',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.notion.so',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'encrypted-tbn0.gstatic.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images7.alphacoders.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'unsplash.com',
+      },
     ],
   },
 };
+
+module.exports = nextConfig;

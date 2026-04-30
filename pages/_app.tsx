@@ -1,9 +1,8 @@
-import type { AppProps } from "next/app";
 import ProgressBar from "@badrap/bar-of-progress";
-import Router from "next/router";
 import { Analytics } from "@vercel/analytics/react";
-import { Inter } from "next/font/google";
-import { Nunito } from "next/font/google";
+import type { AppProps } from "next/app";
+import { Caveat, Inter, Nunito } from "next/font/google";
+import Router from "next/router";
 
 // core styles shared by all of react-notion-x (required)
 import "react-notion-x/src/styles.css";
@@ -12,12 +11,12 @@ import "react-notion-x/src/styles.css";
 import "prismjs/themes/prism-tomorrow.css";
 import "../styles/globals.css";
 
-import "react-tooltip/dist/react-tooltip.css";
 import { ThemeProvider } from "next-themes";
+import "react-tooltip/dist/react-tooltip.css";
 
 const progress = new ProgressBar({
   size: 2,
-  color: "#34D399",
+  color: "#ef4444",
   className: "bar-of-progress",
   delay: 200,
 });
@@ -36,10 +35,17 @@ const nunito = Nunito({
   variable: "--font-nunito",
 });
 
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider attribute="class" enableSystem>
-      <Component {...pageProps} />
+    <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
+      <div className={`${inter.variable} ${nunito.variable} ${caveat.variable} font-inter min-h-screen`}>
+        <Component {...pageProps} />
+      </div>
       <Analytics />
     </ThemeProvider>
   );

@@ -1,18 +1,28 @@
-import React, { FC } from "react";
+import React from "react";
 import { NotionRenderer } from "react-notion-x";
-
 import { mapNotionImageUrl } from "@/lib/notion-image";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const NotionPage = ({ recordMap }) => {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <>
       <NotionRenderer
-        bodyClassName={`font-inter dark:text-gray-400`}
+        bodyClassName="font-inter"
         showCollectionViewDropdown={false}
         fullPage={false}
         recordMap={recordMap}
         mapImageUrl={mapNotionImageUrl}
-        darkMode={false}
+        darkMode={resolvedTheme === "dark"}
         pageAside={null}
         footer={false}
       />

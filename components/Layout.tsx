@@ -1,12 +1,16 @@
 import Navbar from "@/components/Navbar";
 import Footer from "./Footer";
+import ParticlesBackground from "./ParticlesBackground";
 
 export default function Layout({ children }) {
   return (
-    <>
+    <div className="relative min-h-screen overflow-x-hidden">
+      <ParticlesBackground />
       <Navbar />
-      <div className='w-full max-w-4xl mx-auto'>{children}</div>
+      <main className='w-full max-w-4xl mx-auto relative z-10'>
+        {children}
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }

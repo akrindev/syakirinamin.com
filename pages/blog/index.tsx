@@ -1,9 +1,8 @@
+import FeaturedPosts from "@/components/FeaturedPosts";
 import Layout from "@/components/Layout";
-import Footer from "@/components/Footer";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import { getPosts, Posts } from "../../lib/notion";
-import FeaturedPosts from "@/components/FeaturedPosts";
 
 export default function index({
   featuredPosts: posts,
