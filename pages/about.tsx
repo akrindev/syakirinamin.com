@@ -63,15 +63,7 @@ const techSkills = [
   "SQLite",
 ];
 
-const tools = [
-  "Git",
-  "AWS",
-  "idcloudhost",
-  "Google Cloud",
-  "Figma",
-  "Firebase",
-  "Supabase",
-];
+const tools = ["Git", "AWS", "idcloudhost", "Google Cloud", "Figma", "Firebase", "Supabase"];
 
 export default function About() {
   const container = useRef(null);
@@ -93,7 +85,7 @@ export default function About() {
         delay: 0.3,
       });
     },
-    { scope: container }
+    { scope: container },
   );
 
   return (
@@ -122,14 +114,9 @@ export default function About() {
           </div>
           <div>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-1">
-              M Syafinda{" "}
-              <span className="text-primary font-handwritten">
-                Syakirin Amin
-              </span>
+              M Syafinda <span className="text-primary font-handwritten">Syakirin Amin</span>
             </h1>
-            <p className="text-zinc-500 dark:text-zinc-400 font-medium mb-3">
-              Full-Stack Engineer
-            </p>
+            <p className="text-zinc-500 dark:text-zinc-400 font-medium mb-3">Full-Stack Engineer</p>
             <div className="flex flex-wrap gap-3 text-sm">
               <a
                 href="mailto:akrinmin@gmail.com"
@@ -204,13 +191,12 @@ export default function About() {
         <section className="about-section mb-10">
           <SectionHeading>Summary</SectionHeading>
           <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Highly motivated Full-Stack Engineer with a proven track record of
-            building robust and scalable web applications using{" "}
+            Highly motivated Full-Stack Engineer with a proven track record of building robust and
+            scalable web applications using{" "}
             <span className="text-primary font-handwritten">Laravel</span> and{" "}
-            <span className="text-primary font-handwritten">React.js</span>.
-            Passionate about solving complex challenges and delivering
-            user-centric solutions. Eager to expand expertise in project
-            management, AI, and UI/UX design, with a strong commitment to
+            <span className="text-primary font-handwritten">React.js</span>. Passionate about
+            solving complex challenges and delivering user-centric solutions. Eager to expand
+            expertise in project management, AI, and UI/UX design, with a strong commitment to
             collaborative teamwork and ethical practices.
           </p>
         </section>
@@ -229,9 +215,7 @@ export default function About() {
                       <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">
                         {exp.company}
                       </h3>
-                      <span className="text-sm text-primary font-medium">
-                        {exp.role}
-                      </span>
+                      <span className="text-sm text-primary font-medium">{exp.role}</span>
                     </div>
                     <span className="text-xs text-zinc-400 dark:text-zinc-500 whitespace-nowrap">
                       {exp.period}
@@ -320,14 +304,9 @@ export default function About() {
               { lang: "Bahasa Indonesia", level: "Fluent" },
               { lang: "English", level: "Conversational" },
             ].map(({ lang, level }) => (
-              <div
-                key={lang}
-                className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400"
-              >
+              <div key={lang} className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
                 <span className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
-                <span className="font-medium text-zinc-900 dark:text-zinc-100">
-                  {lang}
-                </span>
+                <span className="font-medium text-zinc-900 dark:text-zinc-100">{lang}</span>
                 <span className="text-sm text-zinc-400">— {level}</span>
               </div>
             ))}

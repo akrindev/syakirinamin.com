@@ -5,7 +5,7 @@
 @theme {
   --color-primary: #ef4444;
   --color-primary-dark: #b91c1c;
-  
+
   --font-inter: var(--font-inter), ui-sans-serif, system-ui;
   --font-nunito: var(--font-nunito), ui-sans-serif, system-ui;
   --font-caveat: var(--font-caveat), cursive;
@@ -15,7 +15,7 @@
   body {
     @apply bg-white text-zinc-900 transition-colors duration-300 font-inter overflow-x-hidden;
   }
-  
+
   /* Robust dark mode targeting */
   html.dark body {
     @apply bg-zinc-950 text-zinc-100;
@@ -73,7 +73,9 @@
   @apply border-l-4 border-primary pl-4 py-2 italic text-lg;
 }
 
-.notion-h1, .notion-h2, .notion-h3 {
+.notion-h1,
+.notion-h2,
+.notion-h3 {
   @apply font-bold text-zinc-900 dark:text-zinc-100 mb-4 mt-8;
 }
 

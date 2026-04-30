@@ -55,10 +55,11 @@ export const getPosts = async (): Promise<Posts[]> => {
       slug: props.slug?.rich_text?.[0]?.plain_text || "",
       published: props.published?.checkbox || false,
       tags: props.tags?.multi_select?.map((tag: any) => tag.name) || [],
-      thumbnail: props.thumbnail?.files?.map((file: any) => ({
-        name: file.name,
-        url: file.type === "external" ? file.external.url : file.file.url,
-      })) || [],
+      thumbnail:
+        props.thumbnail?.files?.map((file: any) => ({
+          name: file.name,
+          url: file.type === "external" ? file.external.url : file.file.url,
+        })) || [],
       date: props.date?.date?.start || "",
     };
   });
@@ -73,16 +74,22 @@ export const getProjects = async (): Promise<Project[]> => {
 
   return response.results.map((page: any) => {
     const props = page.properties;
-    console.log(`Mapping Project: ${props.Name?.title?.[0]?.plain_text}, Link prop:`, props.link);
+    // console.log(`Mapping Project: ${props.Name?.title?.[0]?.plain_text}, Link prop:`, props.link);
     return {
       id: page.id,
       Name: props.Name?.title?.[0]?.plain_text || "",
       description: props.description?.rich_text?.map((t: any) => t.plain_text).join("") || "",
-      link: props.link?.url || props.Link?.url || props.link?.rich_text?.[0]?.plain_text || props.Link?.rich_text?.[0]?.plain_text || "",
-      image: props.image?.files?.map((file: any) => ({
-        name: file.name,
-        url: file.type === "external" ? file.external.url : file.file.url,
-      })) || [],
+      link:
+        props.link?.url ||
+        props.Link?.url ||
+        props.link?.rich_text?.[0]?.plain_text ||
+        props.Link?.rich_text?.[0]?.plain_text ||
+        "",
+      image:
+        props.image?.files?.map((file: any) => ({
+          name: file.name,
+          url: file.type === "external" ? file.external.url : file.file.url,
+        })) || [],
     };
   });
 };

@@ -14,13 +14,14 @@ export default function index({ projects }: ProjectProps) {
       <Head>
         <title>Projects | Syakirin Amin</title>
       </Head>
-      <div className='py-12 px-4'>
-        <div className='mb-12 max-w-2xl'>
-          <h1 className='text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4'>
+      <div className="py-12 px-4">
+        <div className="mb-12 max-w-2xl">
+          <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
             Projects
           </h1>
-          <p className='text-lg text-zinc-500 dark:text-zinc-400'>
-            A collection of projects I've built, ranging from web applications to experiments in tech.
+          <p className="text-lg text-zinc-500 dark:text-zinc-400">
+            A collection of projects I've built, ranging from web applications to experiments in
+            tech.
           </p>
           <div className="mt-6 w-20 h-1 bg-primary"></div>
         </div>

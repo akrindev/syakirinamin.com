@@ -21,13 +21,11 @@ export default function TechStack() {
   ];
 
   return (
-    <div className='mx-5 w-full max-w-4xl'>
-      <div className='flex flex-col items-end space-y-4'>
-        <div className='flex flex-col items-end space-y-2'>
-          <p className='text-gray-600 font-inter'>
-            technologies I've worked with
-          </p>
-          <div className='flex space-x-6'>
+    <div className="mx-5 w-full max-w-4xl">
+      <div className="flex flex-col items-end space-y-4">
+        <div className="flex flex-col items-end space-y-2">
+          <p className="text-gray-600 font-inter">technologies I've worked with</p>
+          <div className="flex space-x-6">
             {techStack.map((tech) => (
               <div key={tech.name}>
                 <Image
@@ -36,14 +34,14 @@ export default function TechStack() {
                   height={25}
                   data-tooltip-id={tech.name}
                   data-tooltip-content={tech.name}
-                  className='tooltip grayscale hover:grayscale-0 hover:scale-95 duration-300'
+                  className="tooltip grayscale hover:grayscale-0 hover:scale-95 duration-300"
                 />
               </div>
             ))}
           </div>
         </div>
       </div>
-      <Tooltip anchorSelect='.tooltip' />
+      <Tooltip anchorSelect=".tooltip" />
     </div>
   );
 }
