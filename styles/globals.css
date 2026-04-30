@@ -13,7 +13,7 @@
 
 @layer base {
   body {
-    @apply bg-white text-zinc-900 transition-colors duration-300 font-inter;
+    @apply bg-white text-zinc-900 transition-colors duration-300 font-inter overflow-x-hidden;
   }
   
   /* Robust dark mode targeting */

@@ -4,7 +4,7 @@ import ParticlesBackground from "./ParticlesBackground";
 
 export default function Layout({ children }) {
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
+    <div className="relative min-h-screen">
       <ParticlesBackground />
       <Navbar />
       <main className='w-full max-w-4xl mx-auto relative z-10'>
