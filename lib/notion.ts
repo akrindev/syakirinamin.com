@@ -77,7 +77,7 @@ export const getProjects = async (): Promise<Project[]> => {
     return {
       id: page.id,
       Name: props.Name?.title?.[0]?.plain_text || "",
-      description: props.description?.rich_text?.[0]?.plain_text || "",
+      description: props.description?.rich_text?.map((t: any) => t.plain_text).join("") || "",
       link: props.link?.url || props.Link?.url || props.link?.rich_text?.[0]?.plain_text || props.Link?.rich_text?.[0]?.plain_text || "",
       image: props.image?.files?.map((file: any) => ({
         name: file.name,
