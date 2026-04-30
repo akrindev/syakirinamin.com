@@ -1,4 +1,4 @@
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -59,55 +59,26 @@ export default function ProjectCard({ name, description, link, image }) {
   const [zoomed, setZoomed] = useState(false);
   console.log(`Rendering ProjectCard: ${name}, link: ${link}, image: ${image ? image[0]?.url : "No image"}, description: ${description ? description.substring(0, 30) + "..." : "No description"}`);
 
-  useGSAP(() => {
-    gsap.from(cardRef.current, {
-      scrollTrigger: {
-        trigger: cardRef.current,
-        start: "top bottom-=100px",
-        toggleActions: "play none none none",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: "power3.out",
-    });
-  }, { scope: cardRef });
+  // useGSAP(() => {
+  //   gsap.from(cardRef.current, {
+  //     scrollTrigger: {
+  //       trigger: cardRef.current,
+  //       start: "top bottom-=100px",
+  //       toggleActions: "play none none none",
+  //     },
+  //     opacity: 0,
+  //     y: 50,
+  //     duration: 1,
+  //     ease: "power3.out",
+  //   });
+  // }, { scope: cardRef });
 
   return (
     <div 
       ref={cardRef}
       className='group relative flex flex-col md:flex-row gap-8 p-6 my-4 bg-transparent transition-all duration-500 rounded-3x'
     >
-      {/* image container */}
-      <div className='w-full md:w-64 h-40 flex-shrink-0 relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900 shadow-sm transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/20 group-hover:-translate-y-2'>
-        {image && image[0] ? (
-          <button
-            onClick={() => setZoomed(true)}
-            className="w-full h-full block cursor-zoom-in"
-            aria-label={`Zoom image for ${name}`}
-          >
-            <Image
-              src={image[0].url}
-              alt={name}
-              fill
-              sizes="(max-width: 768px) 100vw, 256px"
-              unoptimized={image[0].url.includes("amazonaws.com")}
-              className='object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1'
-            />
-          </button>
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-zinc-400">
-            No Image
-          </div>
-        )}
-        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500 pointer-events-none"></div>
-      </div>
-
-      {/* lightbox */}
-      {zoomed && image && image[0] && (
-        <Lightbox src={image[0].url} alt={name} onClose={() => setZoomed(false)} />
-      )}
-
+      
       {/* content */}
       <div className='flex flex-col justify-center flex-grow py-2'>
         <div className='mb-1'>
@@ -141,6 +112,37 @@ export default function ProjectCard({ name, description, link, image }) {
           )}
         </div>
       </div>
+
+      {/* image container */}
+      <div className='w-full md:w-64 h-40 shrink-0 relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900 shadow-sm transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/20 transition-all duration-700 group-hover:scale-110 group-hover:rotate-1'>
+        {image && image[0] ? (
+          <button
+            onClick={() => setZoomed(true)}
+            className="w-full h-full block cursor-zoom-in"
+            aria-label={`Zoom image for ${name}`}
+          >
+            <Image
+              src={image[0].url}
+              alt={name}
+              fill
+              sizes="(max-width: 768px) 100vw, 256px"
+              unoptimized={image[0].url.includes("amazonaws.com")}
+              className='object-cover '
+            />
+          </button>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-zinc-400">
+            No Image
+          </div>
+        )}
+        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500 pointer-events-none"></div>
+      </div>
+
+      {/* lightbox */}
+      {zoomed && image && image[0] && (
+        <Lightbox src={image[0].url} alt={name} onClose={() => setZoomed(false)} />
+      )}
+
     </div>
   );
 }

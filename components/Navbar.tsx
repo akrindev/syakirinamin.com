@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 
 const listMenu: Array<{ name: string; link: string }> = [
   {
+    name: "About",
+    link: "/about",
+  },
+  {
     name: "Blog",
     link: "/blog",
   },
