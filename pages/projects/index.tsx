@@ -3,7 +3,6 @@ import ProjectCard from "@/components/ProjectCard";
 import { Project, getProjects } from "@/lib/notion";
 import Head from "next/head";
 import { GetStaticProps } from "next/types";
-// import { NotionAPI } from "notion-client";
 
 interface ProjectProps {
   projects: Project[];
@@ -13,30 +12,34 @@ export default function index({ projects }: ProjectProps) {
   return (
     <Layout>
       <Head>
-        <title>Projects</title>
+        <title>Projects | Syakirin Amin</title>
       </Head>
-      <div className='mb-20'>
-        <div className='mx-5 font-nunito'>
-          <h1 className='text-2xl font-semibold'>Projects</h1>
-          <p className='text-sm text-gray-500'>
-            Curated list of projects I've worked on. ordered by the latest to
-            oldest.
+      <div className="py-12 px-4">
+        <div className="mb-12 max-w-2xl">
+          <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
+            Projects
+          </h1>
+          <p className="text-lg text-zinc-500 dark:text-zinc-400">
+            A collection of projects I've built, ranging from web applications to experiments in
+            tech.
           </p>
+          <div className="mt-6 w-20 h-1 bg-primary"></div>
         </div>
 
-        {/*  */}
-        {projects &&
-          projects.map((post) => {
-            return (
-              <ProjectCard
-                key={post.id}
-                description={post.description}
-                image={post.image}
-                link={post.link}
-                name={post.Name}
-              />
-            );
-          })}
+        <div className="flex flex-col gap-2">
+          {projects &&
+            projects.map((post) => {
+              return (
+                <ProjectCard
+                  key={post.id}
+                  description={post.description}
+                  image={post.image}
+                  link={post.link}
+                  name={post.Name}
+                />
+              );
+            })}
+        </div>
       </div>
     </Layout>
   );
@@ -45,13 +48,10 @@ export default function index({ projects }: ProjectProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const projects = await getProjects();
 
-  // const keys = Object.keys(post?.block || {});
-  // const block = post?.block?.[keys[0]]?.value;
-
   return {
     props: {
       projects,
     },
-    revalidate: 3,
+    revalidate: 60,
   };
 };
