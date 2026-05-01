@@ -8,39 +8,40 @@ interface ProjectProps {
   projects: Project[];
 }
 
-export default function index({ projects }: ProjectProps) {
+export default function Index({ projects }: ProjectProps) {
   return (
     <Layout>
       <Head>
         <title>Projects | Syakirin Amin</title>
       </Head>
-      <div className="max-w-4xl mx-auto py-12 px-4">
-        <div className="mb-12 max-w-2xl">
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
-            Projects
-          </h1>
-          <p className="text-lg text-zinc-500 dark:text-zinc-400">
-            A collection of projects I've built, ranging from web applications to experiments in
-            tech.
-          </p>
-          <div className="mt-6 w-20 h-1 bg-primary"></div>
+      <section className="mx-auto max-w-4xl px-4 py-12 md:py-16">
+        <div className="mb-10 max-w-2xl space-y-4">
+          <span className="inline-flex rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+            Selected work
+          </span>
+          <div className="space-y-3">
+            <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
+              Projects timeline
+            </h1>
+            <p className="max-w-xl text-sm leading-6 text-zinc-500 dark:text-zinc-400 md:text-base">
+              A compact timeline of products, experiments, and client work with the details kept
+              intentionally tight and scannable.
+            </p>
+          </div>
         </div>
 
-        <div className="flex max-w-4xl flex-col gap-2">
-          {projects &&
-            projects.map((post) => {
-              return (
-                <ProjectCard
-                  key={post.id}
-                  description={post.description}
-                  image={post.image}
-                  link={post.link}
-                  name={post.Name}
-                />
-              );
-            })}
+        <div className="space-y-0">
+          {projects?.map((project) => (
+            <ProjectCard
+              key={project.id}
+              description={project.description}
+              image={project.image}
+              link={project.link}
+              name={project.Name}
+            />
+          ))}
         </div>
-      </div>
+      </section>
     </Layout>
   );
 }

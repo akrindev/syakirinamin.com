@@ -1,6 +1,6 @@
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) {
@@ -46,13 +46,13 @@ function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: ()
     >
       <div
         ref={imgRef}
-        className="relative max-w-4xl max-h-[90vh] w-full mx-4 flex items-center justify-center"
+        className="relative mx-4 flex max-h-[90vh] w-full max-w-4xl items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
-        <img src={src} alt={alt} className="max-w-full max-h-[90vh] object-contain rounded-2xl" />
+        <img src={src} alt={alt} className="max-h-[90vh] max-w-full rounded-2xl object-contain" />
         <button
           onClick={handleClose}
-          className="absolute top-3 right-3 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors cursor-zoom-out"
+          className="absolute top-3 right-3 cursor-zoom-out rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
           aria-label="Close zoom"
         >
           <svg
@@ -76,104 +76,117 @@ function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: ()
   );
 }
 
-export default function ProjectCard({ name, description, link, image }) {
-  const cardRef = useRef(null);
-  const [zoomed, setZoomed] = useState(false);
-  // console.log(
-  //   `Rendering ProjectCard: ${name}, link: ${link}, image: ${image ? image[0]?.url : "No image"}, description: ${description ? description.substring(0, 30) + "..." : "No description"}`,
-  // );
+interface ProjectImage {
+  name: string;
+  url: string;
+}
 
-  // useGSAP(() => {
-  //   gsap.from(cardRef.current, {
-  //     scrollTrigger: {
-  //       trigger: cardRef.current,
-  //       start: "top bottom-=100px",
-  //       toggleActions: "play none none none",
-  //     },
-  //     opacity: 0,
-  //     y: 50,
-  //     duration: 1,
-  //     ease: "power3.out",
-  //   });
-  // }, { scope: cardRef });
+interface ProjectCardProps {
+  name: string;
+  description: string;
+  link: string;
+  image: ProjectImage[];
+}
+
+const FALLBACK_IMAGE = "/no_image.jpg";
+
+export default function ProjectCard({ name, description, link, image }: ProjectCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [zoomed, setZoomed] = useState(false);
+  const [imageSrc, setImageSrc] = useState(FALLBACK_IMAGE);
+
+  const primaryImage = useMemo(() => image?.[0]?.url?.trim() || "", [image]);
+  const hasRemoteImage = primaryImage.length > 0;
+  const displayLink = link ? link.replace(/^https?:\/\//, "") : "";
+
+  useEffect(() => {
+    setImageSrc(primaryImage || FALLBACK_IMAGE);
+  }, [primaryImage]);
+
+  const isFallbackImage = imageSrc === FALLBACK_IMAGE;
 
   return (
-    <div
-      ref={cardRef}
-      className="group relative flex flex-col md:flex-row gap-8 p-6 my-4 bg-transparent transition-all duration-500 rounded-3x"
-    >
-      {/* content */}
-      <div className="order-2 flex flex-col justify-center flex-grow py-2 md:order-1">
-        <div className="mb-1">
-          <h3 className="text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-primary transition-colors duration-300">
-            {name}
-          </h3>
-        </div>
+    <article ref={cardRef} className="group relative grid grid-cols-[2.75rem_1fr] gap-3 md:grid-cols-[4rem_1fr] md:gap-6">
+      <div className="relative flex flex-col items-center">
+        <span className="mt-2 h-3 w-3 rounded-full border-2 border-primary/30 bg-primary shadow-[0_0_0_6px_rgba(59,130,246,0.08)]" />
+        <span className="mt-2 h-full w-px bg-zinc-200 dark:bg-zinc-800" />
+      </div>
 
-        <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4 font-medium">
-          {description}
-        </p>
-
-        <div className="flex items-center gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-primary"
-          >
-            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-          </svg>
-          {link ? (
-            <a
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-semibold text-zinc-500 hover:text-primary transition-colors duration-300 break-all underline decoration-zinc-200 dark:decoration-zinc-800 hover:decoration-primary/50"
+      <div className="pb-10 pt-1">
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-5">
+          <div className="order-1 relative h-36 w-full shrink-0 overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-900 md:order-2 md:h-28 md:w-44">
+            <button
+              onClick={() => {
+                if (!isFallbackImage) {
+                  setZoomed(true);
+                }
+              }}
+              className={`block h-full w-full ${isFallbackImage ? "cursor-default" : "cursor-zoom-in"}`}
+              aria-label={isFallbackImage ? `${name} preview unavailable` : `Zoom image for ${name}`}
+              type="button"
             >
-              {link.replace(/^https?:\/\//, "")}
-            </a>
-          ) : (
-            <span className="text-sm text-zinc-400 italic">No link provided</span>
-          )}
+              <Image
+                src={imageSrc}
+                alt={name}
+                fill
+                sizes="(max-width: 768px) 100vw, 176px"
+                unoptimized={imageSrc.includes("amazonaws.com")}
+                onError={() => setImageSrc(FALLBACK_IMAGE)}
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </button>
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/10 to-transparent" />
+            {!hasRemoteImage || isFallbackImage ? (
+              <div className="absolute inset-x-3 bottom-3 rounded-md bg-white/80 px-2 py-1 text-center text-[10px] font-medium tracking-wide text-zinc-600 backdrop-blur-sm dark:bg-zinc-950/80 dark:text-zinc-300">
+                Preview unavailable
+              </div>
+            ) : null}
+          </div>
+
+          <div className="order-2 min-w-0 flex-1 space-y-3 md:order-1">
+            <div className="space-y-1">
+              <h3 className="text-base font-semibold tracking-tight text-zinc-900 transition-colors duration-300 group-hover:text-primary dark:text-zinc-100 md:text-lg">
+                {name}
+              </h3>
+              {link ? (
+                <a
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex max-w-full items-center gap-1 text-[11px] font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-4 transition-colors duration-300 hover:text-primary hover:decoration-primary/50 dark:text-zinc-400 dark:decoration-zinc-700 md:text-xs"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="shrink-0 text-primary"
+                  >
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                  </svg>
+                  <span className="truncate">{displayLink}</span>
+                </a>
+              ) : (
+                <span className="text-[11px] italic text-zinc-400 dark:text-zinc-500 md:text-xs">
+                  No link provided
+                </span>
+              )}
+            </div>
+
+            <p className="text-xs leading-6 text-justify text-zinc-600 dark:text-zinc-400 md:text-sm">
+              {description}
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* image container */}
-      <div className="order-1 w-full md:w-64 h-40 shrink-0 relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900 shadow-sm transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/20 transition-all duration-700 group-hover:scale-110 group-hover:rotate-1 md:order-2">
-        {image && image[0] ? (
-          <button
-            onClick={() => setZoomed(true)}
-            className="w-full h-full block cursor-zoom-in"
-            aria-label={`Zoom image for ${name}`}
-          >
-            <Image
-              src={image[0].url}
-              alt={name}
-              fill
-              sizes="(max-width: 768px) 100vw, 256px"
-              unoptimized={image[0].url.includes("amazonaws.com")}
-              className="object-cover "
-            />
-          </button>
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-zinc-400">
-            No Image
-          </div>
-        )}
-        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500 pointer-events-none"></div>
-      </div>
-
-      {/* lightbox */}
-      {zoomed && image && image[0] && (
-        <Lightbox src={image[0].url} alt={name} onClose={() => setZoomed(false)} />
-      )}
-    </div>
+      {zoomed ? <Lightbox src={imageSrc} alt={name} onClose={() => setZoomed(false)} /> : null}
+    </article>
   );
 }
