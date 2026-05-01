@@ -103,7 +103,7 @@ export default function ProjectCard({ name, description, link, image }) {
       className="group relative flex flex-col md:flex-row gap-8 p-6 my-4 bg-transparent transition-all duration-500 rounded-3x"
     >
       {/* content */}
-      <div className="flex flex-col justify-center flex-grow py-2">
+      <div className="order-2 flex flex-col justify-center flex-grow py-2 md:order-1">
         <div className="mb-1">
           <h3 className="text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-primary transition-colors duration-300">
             {name}
@@ -146,7 +146,7 @@ export default function ProjectCard({ name, description, link, image }) {
       </div>
 
       {/* image container */}
-      <div className="w-full md:w-64 h-40 shrink-0 relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900 shadow-sm transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/20 transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
+      <div className="order-1 w-full md:w-64 h-40 shrink-0 relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900 shadow-sm transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/20 transition-all duration-700 group-hover:scale-110 group-hover:rotate-1 md:order-2">
         {image && image[0] ? (
           <button
             onClick={() => setZoomed(true)}

@@ -1,21 +1,24 @@
-import { Moon, Sun } from "lucide-react";
+import { BookOpen, FolderKanban, Home, Moon, Sun, UserRound } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const listMenu: Array<{ name: string; link: string }> = [
+const listMenu: Array<{ name: string; link: string; icon: typeof Home }> = [
   {
     name: "About",
     link: "/about",
+    icon: UserRound,
   },
   {
     name: "Blog",
     link: "/blog",
+    icon: BookOpen,
   },
   {
     name: "Projects",
     link: "/projects",
+    icon: FolderKanban,
   },
 ];
 
@@ -51,25 +54,31 @@ export default function Navbar() {
             <Link
               className={
                 router.pathname === "/"
-                  ? `py-2 px-4 text-primary font-bold text-sm transition-all duration-300 relative after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-primary after:rounded-full`
-                  : `py-2 px-4 text-zinc-600 dark:text-zinc-400 hover:text-primary font-semibold text-sm transition-all duration-300 hover:scale-105`
+                  ? `py-2 px-3 md:px-4 text-primary font-bold text-sm transition-all duration-300 relative after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-primary after:rounded-full`
+                  : `py-2 px-3 md:px-4 text-zinc-600 dark:text-zinc-400 hover:text-primary font-semibold text-sm transition-all duration-300 hover:scale-105`
               }
-              href={"/"}
+              href="/"
+              aria-label="Home"
             >
-              Home
+              <Home size={18} className="md:hidden" />
+              <span className="hidden md:inline">Home</span>
             </Link>
             {listMenu.map((list) => {
+              const Icon = list.icon;
+
               return (
                 <Link
                   className={
                     router.pathname.startsWith(list.link)
-                      ? `py-2 px-4 text-primary font-bold text-sm transition-all duration-300 relative after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-primary after:rounded-full`
-                      : `py-2 px-4 text-zinc-600 dark:text-zinc-400 hover:text-primary font-semibold text-sm transition-all duration-300 hover:scale-105`
+                      ? `py-2 px-3 md:px-4 text-primary font-bold text-sm transition-all duration-300 relative after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-primary after:rounded-full`
+                      : `py-2 px-3 md:px-4 text-zinc-600 dark:text-zinc-400 hover:text-primary font-semibold text-sm transition-all duration-300 hover:scale-105`
                   }
                   href={list.link}
                   key={list.name}
+                  aria-label={list.name}
                 >
-                  {list.name}
+                  <Icon size={18} className="md:hidden" />
+                  <span className="hidden md:inline">{list.name}</span>
                 </Link>
               );
             })}
