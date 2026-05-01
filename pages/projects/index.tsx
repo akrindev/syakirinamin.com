@@ -14,7 +14,7 @@ export default function index({ projects }: ProjectProps) {
       <Head>
         <title>Projects | Syakirin Amin</title>
       </Head>
-      <div className="py-12 px-4">
+      <div className="max-w-4xl mx-auto py-12 px-4">
         <div className="mb-12 max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
             Projects
@@ -26,7 +26,7 @@ export default function index({ projects }: ProjectProps) {
           <div className="mt-6 w-20 h-1 bg-primary"></div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex max-w-4xl flex-col gap-2">
           {projects &&
             projects.map((post) => {
               return (
