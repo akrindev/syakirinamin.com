@@ -91,59 +91,74 @@ interface ProjectCardProps {
 const FALLBACK_IMAGE = "/no_image.jpg";
 
 export default function ProjectCard({ name, description, link, image }: ProjectCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
   const [zoomed, setZoomed] = useState(false);
-  const [imageSrc, setImageSrc] = useState(FALLBACK_IMAGE);
+  const [loaded, setLoaded] = useState(false);
+  const [errored, setErrored] = useState(false);
 
   const primaryImage = useMemo(() => image?.[0]?.url?.trim() || "", [image]);
   const hasRemoteImage = primaryImage.length > 0;
+  const [imageSrc, setImageSrc] = useState(() => primaryImage || FALLBACK_IMAGE);
   const displayLink = link ? link.replace(/^https?:\/\//, "") : "";
 
   useEffect(() => {
     setImageSrc(primaryImage || FALLBACK_IMAGE);
+    setLoaded(false);
+    setErrored(false);
   }, [primaryImage]);
 
-  const isFallbackImage = imageSrc === FALLBACK_IMAGE;
+  const showUnavailable = !hasRemoteImage || errored;
 
   return (
-    <article ref={cardRef} className="group relative grid grid-cols-[2.75rem_1fr] gap-3 md:grid-cols-[4rem_1fr] md:gap-6">
+    <article className="group relative grid grid-cols-[2.5rem_1fr] gap-1">
       <div className="relative flex flex-col items-center">
-        <span className="mt-2 h-3 w-3 rounded-full border-2 border-primary/30 bg-primary shadow-[0_0_0_6px_rgba(59,130,246,0.08)]" />
+        <span className="mt-2 h-3 w-3 rounded-full border-2 border-primary/30 bg-primary shadow-[0_0_0_6px_rgba(59,130,246,0.08)] animate animate-pulse" />
         <span className="mt-2 h-full w-px bg-zinc-200 dark:bg-zinc-800" />
       </div>
 
-      <div className="pb-10 pt-1">
-        <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-5">
-          <div className="order-1 relative h-36 w-full shrink-0 overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-900 md:order-2 md:h-28 md:w-44">
+      <div className="pb-8 pt-1">
+        <div className="flex flex-col gap-4 md:grid md:grid-cols-[2fr_1fr] md:gap-6 md:items-start">
+          <div className="group order-1 md:order-2 relative h-40 w-full overflow-visible rounded-xl bg-zinc-100 dark:bg-zinc-900 md:h-52">
+            {!loaded && hasRemoteImage && (
+              <div className="absolute inset-0 z-10 rounded-xl overflow-hidden">
+                <div className="h-full w-full animate-pulse bg-zinc-200 dark:bg-zinc-800" />
+                <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-linear-to-r from-transparent via-white/20 to-transparent" />
+              </div>
+            )}
             <button
               onClick={() => {
-                if (!isFallbackImage) {
+                if (!showUnavailable) {
                   setZoomed(true);
                 }
               }}
-              className={`block h-full w-full ${isFallbackImage ? "cursor-default" : "cursor-zoom-in"}`}
-              aria-label={isFallbackImage ? `${name} preview unavailable` : `Zoom image for ${name}`}
+              className={`relative block h-full w-full ${showUnavailable ? "cursor-default" : "cursor-zoom-in"}`}
+              aria-label={
+                showUnavailable ? `${name} preview unavailable` : `Zoom image for ${name}`
+              }
               type="button"
             >
               <Image
                 src={imageSrc}
                 alt={name}
                 fill
-                sizes="(max-width: 768px) 100vw, 176px"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 32vw"
                 unoptimized={imageSrc.includes("amazonaws.com")}
-                onError={() => setImageSrc(FALLBACK_IMAGE)}
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                onError={() => {
+                  setImageSrc(FALLBACK_IMAGE);
+                  setErrored(true);
+                }}
+                onLoad={() => setLoaded(true)}
+                className={`object-cover rounded-2xl transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-lg group-hover:shadow-primary ${loaded ? "opacity-100" : "opacity-0"}`}
               />
             </button>
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/10 to-transparent" />
-            {!hasRemoteImage || isFallbackImage ? (
+            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-950/10 to-transparent" />
+            {showUnavailable ? (
               <div className="absolute inset-x-3 bottom-3 rounded-md bg-white/80 px-2 py-1 text-center text-[10px] font-medium tracking-wide text-zinc-600 backdrop-blur-sm dark:bg-zinc-950/80 dark:text-zinc-300">
                 Preview unavailable
               </div>
             ) : null}
           </div>
 
-          <div className="order-2 min-w-0 flex-1 space-y-3 md:order-1">
+          <div className="order-2 md:order-1 min-w-0 w-full space-y-3 md:pt-1">
             <div className="space-y-1">
               <h3 className="text-base font-semibold tracking-tight text-zinc-900 transition-colors duration-300 group-hover:text-primary dark:text-zinc-100 md:text-lg">
                 {name}
@@ -179,7 +194,7 @@ export default function ProjectCard({ name, description, link, image }: ProjectC
               )}
             </div>
 
-            <p className="text-xs leading-6 text-justify text-zinc-600 dark:text-zinc-400 md:text-sm">
+            <p className="w-full text-xs leading-5 text-justify text-zinc-600 dark:text-zinc-400 md:text-sm">
               {description}
             </p>
           </div>

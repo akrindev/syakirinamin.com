@@ -7,7 +7,7 @@ export default function Layout({ children }) {
     <div className="relative min-h-screen">
       <ParticlesBackground />
       <Navbar />
-      <main className="w-full max-w-4xl mx-auto relative z-10">{children}</main>
+      <main className="w-full max-w-5xl mx-auto relative z-10">{children}</main>
       <Footer />
     </div>
   );

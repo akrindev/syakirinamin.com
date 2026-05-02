@@ -42,7 +42,7 @@ const caveat = Caveat({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
+    <ThemeProvider attribute="class" enableSystem={true} defaultTheme="dark">
       <div
         className={`${inter.variable} ${nunito.variable} ${caveat.variable} font-inter min-h-screen`}
       >
