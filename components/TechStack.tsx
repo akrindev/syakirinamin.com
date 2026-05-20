@@ -1,7 +1,9 @@
+import { useI18n } from "@/components/I18nProvider";
 import Image from "next/legacy/image";
 import { Tooltip } from "react-tooltip";
 
 export default function TechStack() {
+  const { messages } = useI18n();
   const techStack: Array<{
     name: string;
     logo: string;
@@ -24,7 +26,7 @@ export default function TechStack() {
     <div className="mx-5 w-full max-w-4xl">
       <div className="flex flex-col items-end space-y-4">
         <div className="flex flex-col items-end space-y-2">
-          <p className="text-gray-600 font-inter">technologies I've worked with</p>
+          <p className="text-gray-600 font-inter">{messages.techStack.workedWith}</p>
           <div className="flex space-x-6">
             {techStack.map((tech) => (
               <div key={tech.name}>

@@ -1,14 +1,17 @@
 import FeaturedPosts from "@/components/FeaturedPosts";
+import { useI18n } from "@/components/I18nProvider";
 import Layout from "@/components/Layout";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import { getPosts, Posts } from "../../lib/notion";
 
 export default function index({ featuredPosts: posts }: { featuredPosts: Posts[] }) {
+  const { messages } = useI18n();
+
   return (
     <Layout>
       <Head>
-        <title>Blog</title>
+        <title>{messages.meta.blogTitle}</title>
       </Head>
       <div className="mb-20 divide-y-2 divide-gray-100">
         {posts && <FeaturedPosts posts={posts} />}

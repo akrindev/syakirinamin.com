@@ -3,20 +3,21 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useI18n } from "@/components/I18nProvider";
 
-const listMenu: Array<{ name: string; link: string; icon: typeof Home }> = [
+const listMenu: Array<{ key: "about" | "blog" | "projects"; link: string; icon: typeof Home }> = [
   {
-    name: "About",
+    key: "about",
     link: "/about",
     icon: UserRound,
   },
   {
-    name: "Blog",
+    key: "blog",
     link: "/blog",
     icon: BookOpen,
   },
   {
-    name: "Projects",
+    key: "projects",
     link: "/projects",
     icon: FolderKanban,
   },
@@ -25,6 +26,8 @@ const listMenu: Array<{ name: string; link: string; icon: typeof Home }> = [
 export default function Navbar() {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
+  const { locale, setLocale, messages } = useI18n();
+  const nextLocale = locale === "en" ? "id" : "en";
 
   useEffect(() => {
     setIsClient(true);
@@ -35,6 +38,10 @@ export default function Navbar() {
   // toggle dark theme
   function handleDarkMode() {
     setTheme(theme === "dark" ? "light" : "dark");
+  }
+
+  function handleLocaleChange() {
+    setLocale(nextLocale);
   }
 
   return (
@@ -58,13 +65,14 @@ export default function Navbar() {
                   : `py-2 px-3 md:px-4 text-zinc-600 dark:text-zinc-400 hover:text-primary font-semibold text-sm transition-all duration-300 hover:scale-105`
               }
               href="/"
-              aria-label="Home"
+              aria-label={messages.nav.home}
             >
               <Home size={18} className="md:hidden" />
-              <span className="hidden md:inline">Home</span>
+              <span className="hidden md:inline">{messages.nav.home}</span>
             </Link>
             {listMenu.map((list) => {
               const Icon = list.icon;
+              const label = messages.nav[list.key];
 
               return (
                 <Link
@@ -74,11 +82,11 @@ export default function Navbar() {
                       : `py-2 px-3 md:px-4 text-zinc-600 dark:text-zinc-400 hover:text-primary font-semibold text-sm transition-all duration-300 hover:scale-105`
                   }
                   href={list.link}
-                  key={list.name}
-                  aria-label={list.name}
+                  key={list.key}
+                  aria-label={label}
                 >
                   <Icon size={18} className="md:hidden" />
-                  <span className="hidden md:inline">{list.name}</span>
+                  <span className="hidden md:inline">{label}</span>
                 </Link>
               );
             })}
@@ -89,9 +97,17 @@ export default function Navbar() {
           <button
             className="p-2.5 text-zinc-500 hover:text-primary hover:bg-white/50 dark:hover:bg-zinc-900/50 rounded-full transition-all duration-300 hover:scale-110 active:scale-90 shadow-sm"
             onClick={handleDarkMode}
-            aria-label="Toggle Dark Mode"
+            aria-label={messages.nav.toggleTheme}
           >
             {isClient && theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          <button
+            className="px-2.5 py-2 text-[11px] font-black tracking-widest text-zinc-500 hover:text-primary hover:bg-white/50 dark:hover:bg-zinc-900/50 rounded-full transition-all duration-300 hover:scale-110 active:scale-90 shadow-sm"
+            onClick={handleLocaleChange}
+            aria-label={messages.nav.switchLanguage}
+            type="button"
+          >
+            {messages.nav.localeLabel}
           </button>
         </div>
       </nav>

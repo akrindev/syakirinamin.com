@@ -1,6 +1,8 @@
+import { useI18n } from "@/components/I18nProvider";
 import Layout from "@/components/Layout";
 import NotionPage from "@/components/NotionPage";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { getDateLocale } from "@/lib/i18n";
 import { getPosts, Posts } from "@/lib/notion";
 import { format } from "date-fns";
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -13,6 +15,7 @@ import { useRef } from "react";
 export default function BlogPost({ post, property }: { property: Posts; post }) {
   const router = useRouter();
   const container = useRef(null);
+  const { locale, messages } = useI18n();
 
   useGSAP(
     () => {
@@ -42,7 +45,11 @@ export default function BlogPost({ post, property }: { property: Posts; post }) 
     );
   }
 
-  const date = property.date ? format(new Date(property.date), "MMMM dd, yyyy") : "";
+  const date = property.date
+    ? format(new Date(property.date), messages.common.dateFormat, {
+        locale: getDateLocale(locale),
+      })
+    : "";
 
   return (
     <Layout>
@@ -69,7 +76,7 @@ export default function BlogPost({ post, property }: { property: Posts; post }) 
           >
             <path d="m15 18-6-6 6-6" />
           </svg>
-          Back to Blog
+          {messages.blog.backToBlog}
         </Link>
 
         <header className="blog-header mb-12">

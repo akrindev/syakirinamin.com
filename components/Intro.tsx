@@ -1,10 +1,12 @@
 import { gsap, useGSAP } from "@/lib/gsap";
+import { useI18n } from "@/components/I18nProvider";
 import Image from "next/image";
 import { useRef } from "react";
 import SocialSection from "./SocialSection";
 
 export default function Intro() {
   const container = useRef(null);
+  const { messages } = useI18n();
 
   useGSAP(
     () => {
@@ -78,23 +80,22 @@ export default function Intro() {
       </div>
 
       <div className="intro-title text-2xl md:text-4xl font-bold tracking-tight mb-8">
-        Hi, I'm{" "}
+        {messages.intro.greeting}{" "}
         <span className="text-primary font-handwritten highlight-underline">Syakirin Amin</span>
       </div>
 
       <div className="intro-desc text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed mb-12">
         <p>
-          I'm a{" "}
+          {messages.intro.descriptionStart}{" "}
           <span className="text-zinc-900 dark:text-zinc-100 font-bold highlight-underline">
-            Full-Stack Engineer
+            {messages.common.fullStackEngineer}
           </span>{" "}
-          with a knack for turning ideas into reality through code. Specializing in crafting
-          intuitive platforms and robust management systems with{" "}
+          {messages.intro.descriptionMiddle}{" "}
           <span className="text-primary font-handwritten">Laravel</span> and{" "}
-          <span className="text-primary font-handwritten">React</span>. Constantly pushing the
-          boundaries of{" "}
+          <span className="text-primary font-handwritten">React</span>.{" "}
+          {messages.intro.descriptionEnd}{" "}
           <span className="text-zinc-900 dark:text-zinc-100 font-bold highlight-underline">
-            AI and UI/UX design
+            {messages.intro.aiUiHighlight}
           </span>
           .
         </p>

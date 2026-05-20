@@ -1,3 +1,4 @@
+import { useI18n } from "@/components/I18nProvider";
 import Layout from "@/components/Layout";
 import ProjectCard from "@/components/ProjectCard";
 import { Project, getProjects } from "@/lib/notion";
@@ -9,19 +10,20 @@ interface ProjectProps {
 }
 
 export default function Index({ projects }: ProjectProps) {
+  const { messages } = useI18n();
+
   return (
     <Layout>
       <Head>
-        <title>Projects | Syakirin Amin</title>
+        <title>{messages.meta.projectsTitle}</title>
       </Head>
       <section className="mx-auto max-w-7xl px-4 py-12 md:py-16">
         <div className="mb-12">
           <h1 className="mb-4 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-            Projects
+            {messages.projects.heading}
           </h1>
           <p className="text-lg text-zinc-500 dark:text-zinc-400">
-            A collection of projects I've built, ranging from web applications to experiments in
-            tech.
+            {messages.projects.description}
           </p>
           <div className="mt-4 h-1 w-20 bg-primary"></div>
         </div>
