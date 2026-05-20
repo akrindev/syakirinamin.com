@@ -1,12 +1,15 @@
+import { useI18n } from "@/components/I18nProvider";
 import { Posts } from "@/lib/notion";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { getDateLocale } from "@/lib/i18n";
 
 export default function FeaturedPosts({ posts }: { posts: Posts[] }) {
   const container = useRef(null);
+  const { locale, messages } = useI18n();
 
   useGSAP(
     () => {
@@ -28,10 +31,10 @@ export default function FeaturedPosts({ posts }: { posts: Posts[] }) {
   return (
     <div ref={container} className="py-12 px-4">
       <div className="mb-10">
-        <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">Latest Posts</h1>
-        <p className="text-zinc-500 dark:text-zinc-400">
-          Thoughts on software engineering, web technology, and design.
-        </p>
+        <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+          {messages.blog.latestPosts}
+        </h1>
+        <p className="text-zinc-500 dark:text-zinc-400">{messages.blog.latestDescription}</p>
         <div className="mt-4 w-12 h-1 bg-primary"></div>
       </div>
 
@@ -66,7 +69,11 @@ export default function FeaturedPosts({ posts }: { posts: Posts[] }) {
 
             <div className="space-y-2">
               <div className="text-xs font-bold text-primary uppercase tracking-widest">
-                {post.date ? format(new Date(post.date), "MMMM dd, yyyy") : "No Date"}
+                {post.date
+                  ? format(new Date(post.date), messages.common.dateFormat, {
+                      locale: getDateLocale(locale),
+                    })
+                  : messages.common.noDate}
               </div>
               <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-primary transition-colors leading-tight">
                 {post.title}

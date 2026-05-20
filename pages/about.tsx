@@ -1,53 +1,10 @@
+import { useI18n } from "@/components/I18nProvider";
 import Layout from "@/components/Layout";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { Check } from "lucide-react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRef } from "react";
-
-const experiences = [
-  {
-    company: "SMK Diponegoro Karanganyar",
-    role: "IT Developer",
-    period: "July 2021 – Present",
-    points: [
-      "Built PPDB (Student Admission) app, school management system (Smeduverse), attendance apps for employees, student attendance app (Smeduverse Orbit), and CBT app for online exams (Smeduverse CBT).",
-      "Successfully integrated multiple applications with the Smeduverse platform, ensuring seamless functionality and data synchronization.",
-      "Collaborated closely with teachers and administrators to gather requirements and deliver user-centric solutions.",
-    ],
-  },
-  {
-    company: "CV Interloka Custom Made",
-    role: "Software Developer",
-    period: "August 2024 – June 2025",
-    points: [
-      "Developing a crowdfunding app and Design Marketplace app.",
-      "Implemented funding management and deposito management.",
-      "Built interactive dashboards for users to monitor funding progress and account balances.",
-      "Optimized app performance and ensured secure handling of financial data.",
-    ],
-  },
-  {
-    company: "PT Creasi Tekno Solusi",
-    role: "Software Engineer",
-    period: "May 2022 – May 2024",
-    points: [
-      "Collaborated as a Full-Stack Developer using Laravel to build an Asset Management System (AMS) and Vendor Management System (VMS).",
-      "Actively participated in Agile methodologies, including sprint planning and code reviews.",
-      "Contributed to the development of front-end components, and database design.",
-    ],
-  },
-  {
-    company: "CV Cipta Inovasi Digital",
-    role: "Back End Developer",
-    period: "Oct 2023 – Dec 2023",
-    points: [
-      "Collaborated with a team to develop a Distributor Management System (DMS).",
-      "Implemented complex back-end logic, designed and developed RESTful API endpoints.",
-      "Participated in code reviews and maintained adherence to best coding practices.",
-      "Optimized database performance and implemented caching mechanisms for improved application responsiveness.",
-    ],
-  },
-];
 
 const techSkills = [
   "Laravel",
@@ -67,6 +24,7 @@ const tools = ["Git", "AWS", "idcloudhost", "Google Cloud", "Figma", "Firebase",
 
 export default function About() {
   const container = useRef(null);
+  const { messages } = useI18n();
 
   useGSAP(
     () => {
@@ -91,11 +49,8 @@ export default function About() {
   return (
     <Layout>
       <Head>
-        <title>About | Syakirin Amin</title>
-        <meta
-          name="description"
-          content="Learn more about Syakirin Amin — Full-Stack Engineer passionate about building robust web applications."
-        />
+        <title>{messages.meta.aboutTitle}</title>
+        <meta name="description" content={messages.meta.aboutDescription} />
       </Head>
 
       <div ref={container} className="py-12 px-4 max-w-3xl mx-auto">
@@ -116,7 +71,9 @@ export default function About() {
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-1">
               M Syafinda <span className="text-primary font-handwritten">Syakirin Amin</span>
             </h1>
-            <p className="text-zinc-500 dark:text-zinc-400 font-medium mb-3">Full-Stack Engineer</p>
+            <p className="text-zinc-500 dark:text-zinc-400 font-medium mb-3">
+              {messages.common.fullStackEngineer}
+            </p>
             <div className="flex flex-wrap gap-3 text-sm">
               <a
                 href="mailto:akrinmin@gmail.com"
@@ -189,25 +146,19 @@ export default function About() {
 
         {/* Summary */}
         <section className="about-section mb-10">
-          <SectionHeading>Summary</SectionHeading>
+          <SectionHeading>{messages.about.sections.summary}</SectionHeading>
           <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Highly motivated Full-Stack Engineer with a proven track record of building robust and
-            scalable web applications using{" "}
-            <span className="text-primary font-handwritten">Laravel</span> and{" "}
-            <span className="text-primary font-handwritten">React.js</span>. Passionate about
-            solving complex challenges and delivering user-centric solutions. Eager to expand
-            expertise in project management, AI, and UI/UX design, with a strong commitment to
-            collaborative teamwork and ethical practices.
+            {messages.about.summary}
           </p>
         </section>
 
         {/* Experience */}
         <section className="about-section mb-10">
-          <SectionHeading>Experience</SectionHeading>
+          <SectionHeading>{messages.about.sections.experience}</SectionHeading>
           <div className="relative">
             <div className="absolute left-0 top-2 bottom-2 w-px bg-zinc-200 dark:bg-zinc-800" />
             <div className="flex flex-col gap-8">
-              {experiences.map((exp) => (
+              {messages.about.experiences.map((exp) => (
                 <div key={exp.company} className="pl-6 relative">
                   <div className="absolute left-[-4px] top-2 w-2 h-2 rounded-full bg-primary" />
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
@@ -221,13 +172,16 @@ export default function About() {
                       {exp.period}
                     </span>
                   </div>
-                  <ul className="list-disc list-inside space-y-1">
+                  <ul className="space-y-2">
                     {exp.points.map((point, i) => (
                       <li
                         key={i}
-                        className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed"
+                        className="flex items-start gap-2.5 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed"
                       >
-                        {point}
+                        <span className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                          <Check size={11} strokeWidth={3} aria-hidden="true" />
+                        </span>
+                        <span>{point}</span>
                       </li>
                     ))}
                   </ul>
@@ -239,21 +193,21 @@ export default function About() {
 
         {/* Education */}
         <section className="about-section mb-10">
-          <SectionHeading>Education</SectionHeading>
+          <SectionHeading>{messages.about.sections.education}</SectionHeading>
           <div className="relative pl-6">
             <div className="absolute left-0 top-2 bottom-2 w-px bg-zinc-200 dark:bg-zinc-800" />
             <div className="absolute left-[-4px] top-2 w-2 h-2 rounded-full bg-primary" />
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
               <div>
                 <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">
-                  Institute of Technology and Science Nahdlatul Ulama Pekalongan
+                  {messages.about.education.school}
                 </h3>
                 <span className="text-sm text-primary font-medium">
-                  Bachelor of Computer Science
+                  {messages.about.education.degree}
                 </span>
               </div>
               <span className="text-xs text-zinc-400 dark:text-zinc-500 whitespace-nowrap">
-                2022 – Expected 2026
+                {messages.about.education.period}
               </span>
             </div>
           </div>
@@ -261,11 +215,11 @@ export default function About() {
 
         {/* Technical Skills */}
         <section className="about-section mb-10">
-          <SectionHeading>Technical Skills</SectionHeading>
+          <SectionHeading>{messages.about.sections.technicalSkills}</SectionHeading>
           <div className="flex flex-col gap-4">
             <div>
               <p className="text-xs uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-2 font-medium">
-                Technologies
+                {messages.about.skills.technologies}
               </p>
               <div className="flex flex-wrap gap-2">
                 {techSkills.map((skill) => (
@@ -280,7 +234,7 @@ export default function About() {
             </div>
             <div>
               <p className="text-xs uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-2 font-medium">
-                Tools & Platforms
+                {messages.about.skills.tools}
               </p>
               <div className="flex flex-wrap gap-2">
                 {tools.map((tool) => (
@@ -298,16 +252,13 @@ export default function About() {
 
         {/* Languages */}
         <section className="about-section mb-10">
-          <SectionHeading>Languages</SectionHeading>
+          <SectionHeading>{messages.about.sections.languages}</SectionHeading>
           <div className="flex flex-wrap gap-4">
-            {[
-              { lang: "Bahasa Indonesia", level: "Fluent" },
-              { lang: "English", level: "Conversational" },
-            ].map(({ lang, level }) => (
+            {messages.about.languages.map(({ lang, level }) => (
               <div key={lang} className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
                 <span className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
                 <span className="font-medium text-zinc-900 dark:text-zinc-100">{lang}</span>
-                <span className="text-sm text-zinc-400">— {level}</span>
+                <span className="text-sm text-zinc-400">· {level}</span>
               </div>
             ))}
           </div>
@@ -336,7 +287,7 @@ export default function About() {
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-            Download CV
+            {messages.about.downloadCv}
           </a>
         </section>
       </div>

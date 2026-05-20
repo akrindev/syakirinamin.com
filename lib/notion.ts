@@ -28,10 +28,138 @@ export interface Project {
   Name: string;
 }
 
+type NotionProperties = Record<string, unknown>;
+
+interface NotionResultWithProperties {
+  id: string;
+  properties: NotionProperties;
+}
+
+interface RichTextItem {
+  plain_text: string;
+}
+
+interface TitleProperty {
+  title?: RichTextItem[];
+}
+
+interface RichTextProperty {
+  rich_text?: RichTextItem[];
+}
+
+interface CheckboxProperty {
+  checkbox?: boolean;
+}
+
+interface SelectOption {
+  name: string;
+}
+
+interface MultiSelectProperty {
+  multi_select?: SelectOption[];
+}
+
+interface DateProperty {
+  date?: {
+    start?: string;
+  };
+}
+
+interface UrlProperty {
+  url?: string;
+}
+
+interface FileProperty {
+  name: string;
+  type: "external" | "file";
+  external?: { url?: string };
+  file?: { url?: string };
+}
+
+interface FilesProperty {
+  files?: FileProperty[];
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function hasProperties(value: unknown): value is NotionResultWithProperties {
+  return isRecord(value) && typeof value.id === "string" && isRecord(value.properties);
+}
+
+function getPagesWithProperties(results: readonly unknown[]): NotionResultWithProperties[] {
+  return results.filter(hasProperties);
+}
+
+function getTitle(property: unknown): string {
+  if (!isRecord(property)) {
+    return "";
+  }
+
+  const title = (property as TitleProperty).title;
+  return title?.map((item) => item.plain_text).join("") ?? "";
+}
+
+function getRichText(property: unknown): string {
+  if (!isRecord(property)) {
+    return "";
+  }
+
+  const richText = (property as RichTextProperty).rich_text;
+  return richText?.map((item) => item.plain_text).join("") ?? "";
+}
+
+function getCheckbox(property: unknown): boolean {
+  if (!isRecord(property)) {
+    return false;
+  }
+
+  return (property as CheckboxProperty).checkbox ?? false;
+}
+
+function getMultiSelect(property: unknown): string[] {
+  if (!isRecord(property)) {
+    return [];
+  }
+
+  return (property as MultiSelectProperty).multi_select?.map((tag) => tag.name) ?? [];
+}
+
+function getFiles(property: unknown): Img[] {
+  if (!isRecord(property)) {
+    return [];
+  }
+
+  return (
+    (property as FilesProperty).files
+      ?.map((file) => ({
+        name: file.name,
+        url: file.type === "external" ? file.external?.url || "" : file.file?.url || "",
+      }))
+      .filter((file) => file.url.length > 0) ?? []
+  );
+}
+
+function getDateStart(property: unknown): string {
+  if (!isRecord(property)) {
+    return "";
+  }
+
+  return (property as DateProperty).date?.start ?? "";
+}
+
+function getUrl(property: unknown): string {
+  if (!isRecord(property)) {
+    return "";
+  }
+
+  return (property as UrlProperty).url ?? "";
+}
+
 export const getPosts = async (): Promise<Posts[]> => {
   const databaseId = process.env.NOTION_POSTS_DATABASE_ID!;
-  // @ts-ignore - latest client uses dataSources.query
-  const response = await (notion as any).dataSources.query({
+  const response = await notion.dataSources.query({
     data_source_id: databaseId,
     filter: {
       property: "published",
@@ -47,49 +175,38 @@ export const getPosts = async (): Promise<Posts[]> => {
     ],
   });
 
-  return response.results.map((page: any) => {
+  return getPagesWithProperties(response.results).map((page) => {
     const props = page.properties;
     return {
       id: page.id,
-      title: props.title?.title?.map((t: any) => t.plain_text).join("") || "",
-      slug: props.slug?.rich_text?.[0]?.plain_text || "",
-      published: props.published?.checkbox || false,
-      tags: props.tags?.multi_select?.map((tag: any) => tag.name) || [],
-      thumbnail:
-        props.thumbnail?.files?.map((file: any) => ({
-          name: file.name,
-          url: file.type === "external" ? file.external.url : file.file.url,
-        })) || [],
-      date: props.date?.date?.start || "",
+      title: getTitle(props.title),
+      slug: getRichText(props.slug),
+      published: getCheckbox(props.published),
+      tags: getMultiSelect(props.tags),
+      thumbnail: getFiles(props.thumbnail),
+      date: getDateStart(props.date),
     };
   });
 };
 
 export const getProjects = async (): Promise<Project[]> => {
   const databaseId = process.env.NOTION_PROJECTS_DATABASE_ID!;
-  // @ts-ignore - latest client uses dataSources.query
-  const response = await (notion as any).dataSources.query({
+  const response = await notion.dataSources.query({
     data_source_id: databaseId,
   });
 
-  return response.results.map((page: any) => {
+  return getPagesWithProperties(response.results).map((page) => {
     const props = page.properties;
-    // console.log(`Mapping Project: ${props.Name?.title?.[0]?.plain_text}, Link prop:`, props.link);
     return {
       id: page.id,
-      Name: props.Name?.title?.[0]?.plain_text || "",
-      description: props.description?.rich_text?.map((t: any) => t.plain_text).join("") || "",
+      Name: getTitle(props.Name),
+      description: getRichText(props.description),
       link:
-        props.link?.url ||
-        props.Link?.url ||
-        props.link?.rich_text?.[0]?.plain_text ||
-        props.Link?.rich_text?.[0]?.plain_text ||
-        "",
-      image:
-        props.image?.files?.map((file: any) => ({
-          name: file.name,
-          url: file.type === "external" ? file.external.url : file.file.url,
-        })) || [],
+        getUrl(props.link) ||
+        getUrl(props.Link) ||
+        getRichText(props.link) ||
+        getRichText(props.Link),
+      image: getFiles(props.image),
     };
   });
 };

@@ -13,6 +13,7 @@ import "../styles/globals.css";
 
 import { ThemeProvider } from "next-themes";
 import "react-tooltip/dist/react-tooltip.css";
+import { I18nProvider } from "@/components/I18nProvider";
 
 const progress = new ProgressBar({
   size: 2,
@@ -43,12 +44,14 @@ const caveat = Caveat({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider attribute="class" enableSystem={true} defaultTheme="dark">
-      <div
-        className={`${inter.variable} ${nunito.variable} ${caveat.variable} font-inter min-h-screen`}
-      >
-        <Component {...pageProps} />
-      </div>
-      <Analytics />
+      <I18nProvider>
+        <div
+          className={`${inter.variable} ${nunito.variable} ${caveat.variable} font-inter min-h-screen`}
+        >
+          <Component {...pageProps} />
+        </div>
+        <Analytics />
+      </I18nProvider>
     </ThemeProvider>
   );
 }
